@@ -1,0 +1,46 @@
+{
+    "cartItemList": [
+        {
+           
+            "bundleItemList": [
+                {
+                    "count": 1,
+                    "itemType": "GIFT",
+                    "price": "100",
+                    "productId": "60786",
+                    "skuId": "60786"
+                }
+            ],
+            "checked": true,
+            "count": 1,
+            "itemType": "SINGLE",
+            "price": 2500.00,
+            "productId": 71156,
+            "skuId": 60456,
+            "useCouponFlag": false,
+            "valid": false
+        },
+        {
+            "activityCode": "14",
+            "checked": true,
+            "count": 1,
+            "itemType": "SINGLE",
+            "price": 1000.00,
+            "productId": 71487,
+            "skuId": 60456,
+            "useCouponFlag": false,
+            "valid": false
+        }
+    ],
+    "channelId": 1,
+    "memberId": 2709,
+    "orderDistionAmount": 0,
+    "point": 0,
+    "storeId": 1111,
+    "totalAdjust": 0,
+    "totalAmount": 0,
+    "totalProduct": 0,
+    "useCouponOrderAmount": 0,
+    "valid": false,
+    "zoneId": 331100
+}

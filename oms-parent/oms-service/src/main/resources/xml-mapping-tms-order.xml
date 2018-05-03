@@ -1,0 +1,100 @@
+<mapping>
+	<class name="com.ibm.oms.intf.intf.TmsOrderDTO">
+		<map-to xml="request" auto-complete="true" />
+		<field name="address" type="string">
+		<bind-xml name="address" node="element" /> 
+		</field>
+		<field name="addresscode" type="string">
+		<bind-xml name="addresscode" node="element" /> 
+		</field>
+		<field name="area" type="string" />
+		<field name="city" type="string" />
+
+		<field name="createTime" type="string">
+		<bind-xml name="createTime" node="element" /> 
+		</field>
+		<field name="deliverymode" type="integer">
+		<bind-xml name="deliverymode" node="element" /> 
+		</field>
+		<field name="flag" type="integer" />
+		<field name="goodsValue" type="double">
+		<bind-xml name="goodsValue" node="element" /> 
+		</field>
+		<field name="insuranceValue" type="double">
+		<bind-xml name="insuranceValue" node="element" /> 
+		</field>
+		<field name="itemsValue" type="double">
+		<bind-xml name="itemsValue" node="element" /> 
+		</field>
+		<field name="logisticCompanyId" type="string">
+		<bind-xml name="logisticCompanyId" node="element" /> 
+		</field>
+		<field name="mobile" type="string" />
+		<field name="name" type="string" />
+		<field name="needInvoice" type="integer">
+		<bind-xml name="needInvoice" node="element" /> 
+		</field>
+		<field name="orderid" type="string">
+		<bind-xml name="orderid" node="element" /> 
+		</field>
+		<field name="srcOrderNo" type="string">
+		<bind-xml name="srcOrderNo" node="element" /> 
+		</field>
+		<field name="outhousetime" type="string" />
+		<field name="payMode" type="string">
+		<bind-xml name="payMode" node="element" /> 
+		</field>
+		<field name="phone" type="string" />
+		<field name="postCode" type="string">
+		<bind-xml name="postCode" node="element" /> 
+		</field>
+		<field name="prov" type="string" />
+		<field name="remark" type="string" />
+		<field name="reviewtime" type="string" />
+		<field name="toid" type="string" />
+		<field name="totalPCS" type="integer">
+		<bind-xml name="totalPCS" node="element" /> 
+		</field>
+		<field name="totalWeight" type="double">
+		<bind-xml name="totalWeight" node="element" /> 
+		</field>
+		<field name="txLogisticID" type="string">
+		<bind-xml name="txLogisticID" node="element" /> 
+		</field>
+		<field name="type" type="string" />
+		<field name="selfFetchPointId" type="string" />
+		<field name="selfFetchMerchantId" type="string" />
+		<field name="wmsOrderType" type="integer">
+		<bind-xml name="wmsOrderType" node="element" /> 
+		</field>
+		<field name="items" type="com.ibm.oms.intf.intf.inner.TmsOrderItemsDTO" />
+<!-- 			<bind-xml name="items" node="element" /> -->
+<!-- 		</field> -->
+	</class>
+
+	<class name="com.ibm.oms.intf.intf.inner.TmsOrderItemsDTO">
+		<map-to xml="item" auto-complete="true" />
+		<field name="item" type="com.ibm.oms.intf.intf.inner.OrderItemTms" collection="arraylist" />
+	</class>
+	
+	<class name="com.ibm.oms.intf.intf.inner.OrderItemTms">
+		<map-to xml="item" auto-complete="true" />
+		<field name="itemId" type="string">
+		<bind-xml name="itemId" node="element" /> 
+		</field>
+		<field name="itemName" type="string">
+		<bind-xml name="itemName" node="element" /> 
+		</field>
+		<field name="itemValue" type="string">
+		<bind-xml name="itemValue" node="element" /> 
+		</field>
+		<field name="skuId" type="string">
+		<bind-xml name="skuId" node="element" /> 
+		</field>
+		<field name="barCode" type="string">
+		<bind-xml name="barCode" node="element" /> 
+		</field>
+		<field name="number" type="string" />
+		<field name="special" type="string" />
+	</class>
+</mapping>

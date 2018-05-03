@@ -1,0 +1,128 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<http pattern="/register" security="none"></http>
+	<http pattern="/user" security="none"></http>
+	<!--<http pattern="/brand/**" security="none"></http>-->
+		<http pattern="/oms/**" security="none"></http>
+		<http pattern="/btcoms/**" security="none"></http>
+		<http pattern="/bbcoms/**" security="none"></http>
+		<http pattern="/oms-retchg/**" security="none"></http>
+		<http pattern="/costPriceService/**" security="none"></http>
+		<http pattern="/inspectService/**" security="none"></http>
+		<http pattern="/logisticsService/**" security="none"></http>
+		<http pattern="/btcPayService/**" security="none"></http>
+		<http pattern="/oms-wd/**" security="none"></http>
+		<http pattern="/oms-wd-status/**" security="none"></http>
+		<http pattern="/remoting/**" security="none"></http>
+		<http pattern="/offlinePay/**" security="none"></http>
+		<http pattern="/onlinePay/**" security="none"></http>
+		<http pattern="/oms-logistics/**" security="none"></http>
+		
+	<util:constant id="headerNameSessionId"
+		static-field="com.ibm.sc.rs.sys.Constants.HEADER_NAME_SESSION_ID" />
+
+	<util:map id="responseHeadersMap">
+		<beans:entry key="Access-Control-Allow-Origin" value="*" />
+		<beans:entry key="Access-Control-Allow-Headers" value-ref="headerNameSessionId" />
+		<beans:entry key="Access-Control-Expose-Headers"
+			value-ref="headerNameSessionId" />
+	</util:map>
+
+	<beans:bean id="springSecurityPostConfig"
+		class="com.ibm.sc.rs.security.SpringSecurityPostConfig"
+		p:alwaysRemember="true" p:cookieName-ref="headerNameSessionId" />
+
+	<beans:bean id="restfulAuthenticationSuccessHandler"
+		class="com.ibm.sc.rs.security.RestfulAuthenticationSuccessHandler">
+		<beans:constructor-arg name="responseHeaders"
+			ref="responseHeadersMap" />
+	</beans:bean>
+	<beans:bean id="restfulAuthenticationFailureHandler"
+		class="com.ibm.sc.rs.security.RestfulAuthenticationFailureHandler">
+		<beans:constructor-arg name="responseHeaders"
+			ref="responseHeadersMap" />
+	</beans:bean>
+	<beans:bean id="restfulLogoutSuccessHandler"
+		class="com.ibm.sc.rs.security.RestfulLogoutSuccessHandler">
+		<beans:constructor-arg name="responseHeaders"
+			ref="responseHeadersMap" />
+	</beans:bean>
+	<beans:bean id="restfulAccessDeniedHandler"
+		class="com.ibm.sc.rs.security.RestfulAccessDeniedHandler">
+		<beans:constructor-arg name="responseHeaders"
+			ref="responseHeadersMap" />
+	</beans:bean>
+
+	<beans:bean id="headerTokenBasedRememberMeServices"
+		class="com.ibm.sc.rs.security.HeaderTokenBasedRememberMeServices">
+		<beans:constructor-arg name="key"
+			value="c76b47b1303f66467e731a99e3e18d88" />
+		<beans:constructor-arg name="userDetailsService"
+			ref="userDetailsService" />
+	</beans:bean>
+
+	<beans:bean id="httpMethodRequestMatcher"
+		class="com.ibm.sc.rs.security.HttpMethodAntPathRequestMatcher">
+		<beans:constructor-arg name="pattern" value="**" />
+		<beans:constructor-arg name="httpMethods">
+			<beans:list>
+				<beans:value>GET</beans:value>
+				<beans:value>POST</beans:value>
+			</beans:list>
+		</beans:constructor-arg>
+	</beans:bean>
+
+	<http create-session="stateless" request-matcher-ref="httpMethodRequestMatcher">
+		<anonymous enabled="false" />
+		<remember-me key="#{headerTokenBasedRememberMeServices.key}"
+			services-ref="headerTokenBasedRememberMeServices" />
+		<form-login login-processing-url="/login" login-page="/login"
+			username-parameter="username" password-parameter="password"
+			authentication-success-handler-ref="restfulAuthenticationSuccessHandler"
+			authentication-failure-handler-ref="restfulAuthenticationFailureHandler" />
+		<logout logout-url="/logout" success-handler-ref="restfulLogoutSuccessHandler" />
+		<custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="filterSecurityInterceptor" />
+		<access-denied-handler ref="restfulAccessDeniedHandler" />
+	</http>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="userDetailsService">
+			<password-encoder hash="md5" />
+		</authentication-provider>
+	</authentication-manager>
+	<!-- <bean id="secureResourceFilterInvocationDefinitionSource" name="secureResourceFilterInvocationDefinitionSource" 
+		class="com.ibm.sc.service.security.impl.UserDefindInvocationSecurityMetadataSource"> 
+		<constructor-arg ref="roleDao" /> <constructor-arg ref="userDao" /> <constructor-arg 
+		ref="resourceDao" /> <property name="useAntPath" value="true" /> <property 
+		name="lowercaseComparisons" value="true" /> </bean> -->
+	<beans:bean id="filterSecurityInterceptor"
+		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="accessDecisionManager" ref="accessDecisionManager" />
+		<beans:property name="securityMetadataSource" ref="adminSecurityMetadataSource" />
+	</beans:bean>
+	
+	<beans:bean id="accessDecisionManager"
+		class="org.springframework.security.access.vote.AffirmativeBased">
+		<beans:constructor-arg name="decisionVoters">
+			<beans:list>
+				<beans:bean class="com.ibm.sc.service.security.impl.RoleVoter" />
+				<beans:bean
+					class="org.springframework.security.access.vote.AuthenticatedVoter" />
+			</beans:list>
+		</beans:constructor-arg>
+	</beans:bean>
+
+</beans:beans>

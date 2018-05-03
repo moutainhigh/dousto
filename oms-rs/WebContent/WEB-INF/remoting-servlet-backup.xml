@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	 http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	  http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+	  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+	default-lazy-init="true">
+
+	<bean name="/BankResourceManagerService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="bankResourceManagerExtBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.BankResourceManagerExtBiz" />
+	</bean>
+
+    <bean name="/ShowGateWayHistoryBankService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="ShowGateWayHistoryBankService" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.ShowGateWayHistoryBankBiz" />
+	</bean>
+	
+	<bean name="/PayCoreManagerService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="payCoreExtBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.PayCoreExtBiz" />
+	</bean>
+
+	<bean name="/GateWayConfigService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="gateWayConfigBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.GateWayConfigBiz" />
+	</bean>
+
+
+
+	<bean name="/GateWayBasicRescService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="gateWayBasicRescBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.GateWayBasicRescBiz" />
+	</bean>
+
+	<bean name="/GateWayRechargeRescService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="gateWayRechargeRescBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.GateWayRechargeRescBiz" />
+	</bean>
+
+	<bean name="/GateWayPaymentRescService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="gateWayPaymentRescBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.GateWayPaymentRescBiz" />
+	</bean>
+
+	<bean name="/PayBankCardExtService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="payBankCardExtBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.PayBankCardExtBiz" />
+	</bean>
+
+	<bean name="/ContractQueryExtService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="contractQueryExtBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.ContractQueryExtBiz" />
+	</bean>
+	
+	<!-- 生成签约明细文件 -->
+	<bean name="/ExportQuickPayFileService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="exportQuickPayFileBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.ExportQuickPayFileBiz" />
+	</bean>
+
+	<bean name="/QuickPayExtService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="quickPayGateWayExtBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.QuickPayGateWayExtBiz" />
+	</bean>
+	<bean name="/QuickPayReceiptExtService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="eBankQuickPayReceiptManagerBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.EBankQuickPayReceiptManagerBiz" />
+	</bean>
+
+	<bean name="/ContractManagerBizExtService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="contractManagerBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.ContractManagerBiz" />
+	</bean>
+	<!-- 签约补偿 -->
+	<bean name="/ContractRecoupBizService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="contractRecoupBizManger" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.ContractRecoupBiz" />
+	</bean>
+
+	<bean name="/MoneyLimitPolicyService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="moneyLimitPolicyBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.MoneyLimitPolicyBiz" />
+	</bean>
+
+	<bean name="/QueryPayOrderStatusService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="queryPayOrderStatusExtBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.QueryPayOrderStatusExtBiz" />
+	</bean>
+
+	<bean name="/TeleSalesServiceConfigService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="teleSalesServiceConfigBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.TeleSalesServiceConfigBiz" />
+	</bean>
+
+	<bean name="/TelesalesSignInfoExtService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="telesalesSignInfoExtService" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.TelesalesSignInfoExtBiz" />
+	</bean>
+
+	<bean name="/MoneyLimitService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="moneyLimitService" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.MoneyLimitBiz" />
+	</bean>
+
+	<bean name="/RechargeGateWayService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="rechargeGateWayBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.RechargeGateWayBiz" />
+	</bean>
+
+	<!-- 支付网关支付服务 -->
+	<bean name="/PayGateWayPaymentService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="payGateWayPaymentBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.PayGateWayPaymentBiz" />
+	</bean>
+
+	<bean name="/GateWayValidateService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="gateWayValidateBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.GateWayValidateBiz" />
+	</bean>
+
+	<!-- 支付网关短信服务 -->
+	<bean name="/PayGateWayShortMessageService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="payGateWayShortMessageBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.PayGateWayShortMessageBiz" />
+	</bean>
+	<bean name="/TokenValidateService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="tokenValidateBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.TokenValidateBiz" />
+	</bean>
+	<bean name="/EBankMoneyLimitService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="ebankMoneyLimitService" />
+		<property name="serviceInterface" value="com.suning.epp.paycore.service.ext.intf.EBankMoneyLimitBiz"/>
+	</bean>
+		<bean name="/GatewayEppFinanceRescService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="gatewayEppFinanceRescBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.GatewayEppFinanceRescBiz" />
+	</bean>
+	<bean name="/PayChannelManagerService" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="payChannelManagerExtBiz" />
+		<property name="serviceInterface" value="com.suning.epp.paycore.service.ext.intf.PayChannelManagerExtBiz"/>
+	</bean>
+	<!-- 纯签约hessian接口 -->
+	<bean name="/QuickPayContractBiz"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="quickPayContractBizImpl" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.QuickPayContractBiz" />
+	</bean>
+	<!-- 统一支付展示接口 -->
+	<bean name="/UnitaryInvokeIntracePaymentService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="unitaryInvokeIntracePaymentBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.UnitaryInvokeIntracePaymentBiz" />
+	</bean>
+	
+	<!-- 兴业银行对账功能 -->
+	<bean name="/QuickAuthenticateByTimeService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="quickAuthenticateByTimeBizImpl" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.QuickAuthenticateByTimeBiz" />
+	</bean>
+	
+	<!-- 公告栏维护功能 -->
+	<bean name="/GatewayAnnounceManageService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="gatewayAnnounceManageBizImpl" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.GatewayAnnounceManageBiz" />
+	</bean>
+	
+	<!-- 常见问题维护功能 -->
+	<bean name="/GatewayFaqManageService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="gatewayFaqManageBizImpl" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.GatewayFaqManageBiz" />
+	</bean>
+	
+	<!-- 短信模板维护功能 -->
+	<bean name="/GatewayMsgTemplateService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="gatewayMsgTemplateBizImpl" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.GatewayMsgTemplateBiz" />
+	</bean>
+	
+	<!-- 数据字典维护功能 -->
+	<bean name="/GatewayGroupItemService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="gatewayGroupItemBizImpl" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.GatewayGroupItemBiz" />
+	</bean>
+	<!-- 网银分期信息维护 -->
+	<bean name="/InstallmentInfoService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="installmentInfoBizImpl"/>
+		<property name="serviceInterface"
+				value="com.suning.epp.paycore.service.ext.intf.InstallmentInfoBiz"/>
+	</bean>
+	
+	 <bean name="/QuickpayCashierService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="quickpayCashierBizImpl" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.base.intf.QuickpayCashierBiz" />
+	</bean>
+	
+	<bean name="/PayCashierService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="payCashierBizImpl" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.base.intf.PayCashierBiz" />
+	</bean>
+	
+	<bean name="/RechargeCashierService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="rechargeCashierBizImpl" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.base.intf.RechargeCashierBiz" />
+	</bean>
+	
+	<bean name="/PayValidateExtService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="payValidateBiz" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.payvalidate.ext.intf.PayValidateBiz" />
+	</bean>
+	
+	<bean name="/CancelContractService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="cancelContractService" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.CancelContractBiz" />
+	</bean>
+	
+	<bean name="/BalanceManagerService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="balanceManagerService" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.base.intf.BalanceManagerBiz" />
+	</bean>
+	<bean name="/DepositActivityDocService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="depositActivityDocService" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.DepositActivityDocExtBiz" />
+	</bean>
+	<bean name="/GateWayBankReceiptService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="gateWayBankReceiptService" />
+		<property name="serviceInterface"
+			value="com.suning.epp.paycore.service.ext.intf.GateWayBankReceiptBiz" />
+	</bean>
+</beans>

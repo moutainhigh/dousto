@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+/***
+ *	IBM Menu Style
+ *
+ *	http://www.IBM.net
+ *
+ *	Copyright (c) 2008 IBM. All rights reserved.
+ **/
+
+html, body {
+	height: 100%;
+}
+
+.menu .menuContent {
+	height: 100%;
+	color: 666666;
+}
+
+.menu dt {
+	height: 29px;
+	line-height: 29px;
+	background: url(../images/menu_bg.gif) 0px 0px repeat-x;
+}
+
+.menu dt:hover {
+	background: url(../images/menu_bg.gif) 0px -30px repeat-x;
+}
+
+.menu dt span {
+	height: 29px;
+	line-height: 29px;
+	font-weight:bold;
+	display: block;
+	color: #918c8c;
+	margin-left: 0px;
+	
+}
+
+.menu dd {
+	height: 25px;
+	line-height: 25px;
+	border-bottom: 0px solid #cccccc;
+}
+
+.menu dd:hover {
+	background-color: #f6f6;
+	color:#a1224b;
+}

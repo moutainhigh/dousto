@@ -1,0 +1,216 @@
+.messageWindow {
+	width: 400px;
+	margin-left: -200px;
+	display: none;
+	position: fixed;
+	top: 25%;
+	left: 50%;
+	z-index: 200;
+}
+
+.messageWindow .windowTop {
+	width: 400px;
+	height: 29px;
+	clear: both;
+	cursor: move;
+	background: url(../images/message_bg.gif) no-repeat 0px 0px;
+}
+
+.messageWindow .windowMiddle {
+	width: 400px;
+	clear: both;
+	padding: 30px 0px;
+	text-align: center;
+	background: url(../images/message_y_bg.gif) repeat-y 0px 0px;
+}
+
+.messageWindow .windowBottom {
+	width: 400px;
+	height: 5px;
+	clear: both;
+	overflow: hidden;
+	background: url(../images/message_bg.gif) no-repeat 0px -30px;
+}
+
+.messageWindow .windowTitle {
+	height: 29px;
+	line-height: 29px;
+	float: left;
+	margin-left: 8px;
+	font-weight: bold;
+}
+
+.messageWindow .messageClose {
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
+	display: block;
+	outline: none;
+	margin-right: 4px;
+	float: right;
+	cursor: pointer;
+	background: url(../images/message_bg.gif) no-repeat 0px -120px;
+}
+
+.messageWindow .messageClose:hover {
+	background: url(../images/message_bg.gif) no-repeat -30px -120px;
+}
+
+.messageWindow .messageContent {
+	line-height: 12px;
+	clear: both;
+	padding: 0px 20px;
+	margin-bottom: 40px;
+}
+
+.messageWindow .messageContent .icon {
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
+	display: inline-block;
+	display: -moz-inline-stack;
+	zoom: 1;
+	*display: inline;
+}
+
+.messageWindow .messageContent .warn {
+	background: url(../images/message_bg.gif) no-repeat -60px -120px;
+}
+
+.messageWindow .messageContent .success {
+	background: url(../images/message_bg.gif) no-repeat -90px -120px;
+}
+
+.messageWindow .messageContent .error {
+	background: url(../images/message_bg.gif) no-repeat -120px -120px;
+}
+
+.messageWindow .messageContent .messageText {
+	line-height: 29px;
+}
+
+.jqmOverlay {
+	background: url(../images/overlay_bg.png);
+}
+
+* html .messageWindow {
+	position: absolute;
+	top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(25 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}
+
+.tipWindow {
+	padding: 5px 10px;
+	display: none;
+	position: fixed;
+	top: 25%;
+	left: 50%;
+	z-index: 300;
+	color: #000000;
+	border: 2px solid #ffaa71;
+	background-color: #fff5ee;
+}
+
+.tipWindow .icon {
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
+	display: inline-block;
+	display: -moz-inline-stack;
+	zoom: 1;
+	*display: inline;
+}
+
+.tipWindow .warn {
+	background: url(../images/message_bg.gif) no-repeat -60px -120px;
+}
+
+.tipWindow .success {
+	background: url(../images/message_bg.gif) no-repeat -90px -120px;
+}
+
+.tipWindow .error {
+	background: url(../images/message_bg.gif) no-repeat -120px -120px;
+}
+
+.tipWindow .messageText {
+	line-height: 29px;
+}
+
+* html .tipWindow {
+	position: absolute;
+	top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(30 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}
+
+.messageBox {
+	width: 400px;
+	margin: 100px auto;
+}
+
+.messageBox .boxTop {
+	width: 400px;
+	height: 29px;
+	clear: both;
+	background: url(../images/message_bg.gif) no-repeat 0px -60px;
+	color:#FFFFFF;
+	font-family:  "微软雅黑", Arial Black;
+}
+
+.messageBox .boxMiddle {
+	width: 400px;
+	clear: both;
+	padding: 30px 0px;
+	text-align: center;
+	background: url(../images/message_y_bg.gif) repeat-y -400px 0px;
+}
+
+.messageBox .boxBottom {
+	width: 400px;
+	height: 5px;
+	clear: both;
+	overflow: hidden;
+	background: url(../images/message_bg.gif) no-repeat 0px -90px;
+}
+
+.messageBox .boxTitle {
+	height: 29px;
+	line-height: 29px;
+	float: left;
+	margin-left: 8px;
+	font-weight: bold;
+}
+
+.messageBox .messageContent {
+	clear: both;
+	line-height: 12px;
+	padding: 0px 20px;
+	margin-bottom: 40px;
+}
+
+.messageBox .messageContent .icon {
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
+	display: inline-block;
+	display: -moz-inline-stack;
+	zoom: 1;
+	*display: inline;
+}
+
+.messageBox .messageContent .warn {
+	background: url(../images/message_bg.gif) no-repeat -60px -120px;
+}
+
+.messageBox .messageContent .success {
+	background: url(../images/message_bg.gif) no-repeat -90px -120px;
+}
+
+.messageBox .messageContent .error {
+	background: url(../images/message_bg.gif) no-repeat -120px -120px;
+}
+
+.messageBox .messageContent .messageText {
+	line-height: 29px;
+	color:#58666e;
+	font-family:  "微软雅黑", Arial Black;
+	font-size:16px;
+}

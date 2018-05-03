@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="basePackage" extends="struts-default,json-default">
+		<interceptors>
+			<interceptor name="exceptionInterceptor"
+				class="com.ibm.sc.struts.ExceptionInterceptor" />
+			<interceptor-stack name="baseStack">
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="alias" />
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="chain" />
+				<interceptor-ref name="debugging" />
+				<interceptor-ref name="scopedModelDriven" />
+				<interceptor-ref name="modelDriven" />
+				<interceptor-ref name="fileUpload" />
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="multiselect" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="actionMappingParams" />
+				<interceptor-ref name="params">
+					<param name="excludeParams">dojo\..*,^struts\..*</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError" />
+				<!-- 配置方法级别的校验 -->
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+					<param name="validateAnnotatedMethodOnly">true</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<!--  
+				<interceptor-ref name="exceptionInterceptor" />
+				-->
+			</interceptor-stack>
+		</interceptors>
+
+		<!-- 配置默认拦截器栈 -->
+		<default-interceptor-ref name="baseStack" />
+
+		<!-- 未到找Action指向页面 -->
+		<default-action-ref name="errorPage" />
+
+<!-- 全局Exception跳转页面，生产环境使用，开发时不使用
+	   <global-results>
+           <result name="exception">/html/500.htm</result>
+       </global-results>
+
+       <global-exception-mappings>
+           <exception-mapping result="exception" exception="java.lang.Exception"></exception-mapping>
+       </global-exception-mappings>
+	   
+	   <action name="errorPage">
+			<result type="redirect">/html/500.htm</result>
+       </action>
+-->
+
+
+	</package>
+
+	<package name="admin" extends="basePackage" namespace="/">
+		<interceptors>
+			<interceptor name="trimInterceptor"
+				class="com.ibm.sc.struts.interceptor.TrimInterceptor" />
+			<interceptor name="logInterceptor"
+				class="com.ibm.sc.admin.interceptor.LogInterceptor" />
+			<interceptor-stack name="adminStack">
+				<!-- trim拦截器 -->
+				<interceptor-ref name="trimInterceptor" />
+				
+				
+				<interceptor-ref name="baseStack" />
+				<!-- 配置管理日志拦截器 -->
+				<interceptor-ref name="logInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		
+		<!-- 配置默认拦截器栈 -->
+		<default-interceptor-ref name="adminStack" />
+
+		<global-results>
+			<result name="error" type="freemarker">/WEB-INF/template/admin/error.ftl
+			</result>
+			<result name="success" type="freemarker">/WEB-INF/template/admin/success.ftl
+			</result>
+			<result name="succ" type="freemarker">/WEB-INF/template/admin/succ.ftl
+			</result>
+		</global-results>
+
+		<action name="index">
+			<result type="redirect">login.action</result>
+		</action>
+	</package>
+
+</struts>

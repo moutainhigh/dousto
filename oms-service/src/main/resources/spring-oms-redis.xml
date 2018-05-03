@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cache="http://www.springframework.org/schema/cache" xmlns:int-redis="http://www.springframework.org/schema/integration/redis"
+	xmlns:redis="http://www.springframework.org/schema/redis" xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p" xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/redis http://www.springframework.org/schema/redis/spring-redis-1.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+		http://www.springframework.org/schema/integration/redis http://www.springframework.org/schema/integration/redis/spring-integration-redis-3.0.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!-- Jedis ConnectionFactory -->
+	<bean id="redisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory" p:use-pool="true">
+           <constructor-arg index="0" ref="jedisClusterConfig" />
+           <constructor-arg index="1" ref="jedisPoolConfig" />
+	</bean>
+
+	<!-- jedis pool config -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<property name="maxTotal" value="1000" />
+		<property name="maxIdle" value="200" />
+		<property name="maxWaitMillis" value="1000" />
+		<property name="testOnBorrow" value="true" />
+	</bean>
+		
+	<!-- redis集群 -->
+    <bean id="jedisClusterConfig" class="org.springframework.data.redis.connection.RedisClusterConfiguration">
+         <property name="clusterNodes"> 
+            <set>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg index="0" value="${redis.ip1}"></constructor-arg>
+                    <constructor-arg index="1" value="7000"></constructor-arg>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg index="0" value="${redis.ip1}"></constructor-arg>
+                    <constructor-arg index="1" value="7001"></constructor-arg>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg index="0" value="${redis.ip1}"></constructor-arg>
+                    <constructor-arg index="1" value="7002"></constructor-arg>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg index="0" value="${redis.ip1}"></constructor-arg>
+                    <constructor-arg index="1" value="7003"></constructor-arg>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg index="0" value="${redis.ip1}"></constructor-arg>
+                    <constructor-arg index="1" value="7004"></constructor-arg>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg index="0" value="${redis.ip1}"></constructor-arg>
+                    <constructor-arg index="1" value="7005"></constructor-arg>
+                </bean>
+                
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg index="0" value="${redis.ip2}"></constructor-arg>
+                    <constructor-arg index="1" value="7000"></constructor-arg>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg index="0" value="${redis.ip2}"></constructor-arg>
+                    <constructor-arg index="1" value="7001"></constructor-arg>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg index="0" value="${redis.ip2}"></constructor-arg>
+                    <constructor-arg index="1" value="7002"></constructor-arg>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg index="0" value="${redis.ip2}"></constructor-arg>
+                    <constructor-arg index="1" value="7003"></constructor-arg>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg index="0" value="${redis.ip2}"></constructor-arg>
+                    <constructor-arg index="1" value="7004"></constructor-arg>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg index="0" value="${redis.ip2}"></constructor-arg>
+                    <constructor-arg index="1" value="7005"></constructor-arg>
+                </bean>
+            </set>
+          </property>
+    </bean>
+
+	<!-- redis template definition -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="redisConnectionFactory" />
+	</bean>
+
+	<!-- turn on declarative caching -->
+	<cache:annotation-driven proxy-target-class="true"/>
+	<!-- declare Redis Cache Manager -->
+	<bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+        <!--配置 redisTemplate-->
+        <constructor-arg index = "0" type="RedisOperations">
+            <ref bean="redisTemplate" />
+        </constructor-arg>
+        <!-- 过期时间 -->
+        <property name="defaultExpiration" value="300000"/>
+        <!--    支持事务 -->
+        <property name="transactionAware" value = "true"/>
+    </bean>
+   <!-- 
+	<bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager" c:template-ref="redisTemplate" >
+		<property name="defaultExpiration" value="600" />
+	</bean>
+	-->
+</beans>

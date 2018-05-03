@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	 http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	  http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+	  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+	   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd"
+	default-lazy-init="true">
+	<!-- 配置用法 详细参照 remoting-servlet-backup.xml -->
+	<bean name="/IOrderWmsClient"
+		  class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="iOrderWmsClient" />
+		<property name="serviceInterface"
+				  value="com.ibm.oms.client.intf.IOrderWmsClient"/>
+	</bean>
+	<bean name="/DemoService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="demoService" />
+		<property name="serviceInterface"
+			value="com.ibm.oms.client.intf.DemoService" />
+	</bean>
+	<bean name="/OrderSearchServiceRpc"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderSearchServiceRpc" />
+		<property name="serviceInterface"
+			value="com.ibm.oms.client.intf.OrderSearchServiceRpc"/>
+	</bean>
+	<bean name="/OrderMainServiceRpc"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderMainServiceRpc" />
+		<property name="serviceInterface"
+			value="com.ibm.oms.client.intf.OrderMainServiceRpc"/>
+	</bean>
+	
+	<bean name="/IOrderClient"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="iorderClient" />
+		<property name="serviceInterface"
+			value="com.ibm.oms.client.intf.IOrderClient" />
+	</bean>
+	<bean name="/MerchantBalanceDateClient"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="merchantBalanceDateClient" />
+		<property name="serviceInterface"
+			value="com.ibm.oms.client.intf.MerchantBalanceDateClient" />
+	</bean>
+	
+	<bean name="/IMemberBuyingRecordServiceRpc"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="memberBuyingRecordServiceRpc" />
+		<property name="serviceInterface"
+			value="com.ibm.oms.client.intf.IMemberBuyingRecordServiceRpc" />
+	</bean>
+	
+	<bean name="/orderLogisticsClient"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="orderLogisticsClient" />
+		<property name="serviceInterface"
+			value="com.ibm.oms.client.intf.OrderLogisticsClient" />
+	</bean>
+	
+	<!-- 退换货订单 调用接口 -->
+	<bean name="/SaleAfterOrderIntfService"
+		class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="saleAfterOrderIntfService" />
+		<property name="serviceInterface"
+			value="com.ibm.oms.rs.service.SaleAfterOrderIntfService" />
+	</bean>
+	
+	<!-- 支付接口 -->
+	<bean name="/PayOrderService" class="org.springframework.remoting.caucho.HessianServiceExporter"> 
+		<property name="service" ref="payOrderService"></property>
+		<property name="serviceInterface" value="com.ibm.oms.client.intf.PayOrderService"></property>
+	</bean>
+</beans>

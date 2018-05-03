@@ -1,0 +1,158 @@
+@charset "utf-8";
+
+/***
+ *	IBM Header Style
+ *
+ *	http://www.IBM.net
+ *
+ *	Copyright (c) 2008 IBM. All rights reserved.
+ **/
+
+body.header {
+	background: url(../images/header_x_bg.gif) repeat-x;
+}
+
+.header .body {
+	height: 80px;
+	position: relative;
+}
+
+.header .headerLogo {
+	width: 241px;
+	height: 80px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background: url(../images/logo.gif) 0px 0px no-repeat;
+}
+
+.header .headerTop {
+	width: 100%;
+	height: 50px;
+	clear: both;
+}
+
+.header .headerBottom {
+	height: 35px;
+	clear: both;
+	margin-top: -14px;
+	margin-left: 230px;
+}
+
+
+.header .headerLink {
+	height: 27px;
+	line-height: 27px;
+	float: right;
+	margin-left: 100px;
+
+}
+
+.header .headerLink a {
+	padding: 0px 30px;
+}
+
+.header .headerMenu {
+	height: 35px;
+	width: 100%;
+	float: left;
+}
+
+.header .headerMenu .menuLeft {
+	width: 5px;
+	height: 35px;
+	float: left;
+	background: url(../images/header_bg.gif) 0px 0px no-repeat;
+}
+
+.header .headerMenu ul {
+	height: 35px;
+	display: block;
+	float: left;
+	background: url(../images/header_x_navbg.gif) repeat-x;
+}
+
+.header .headerMenu li {
+	height: 35px;
+	line-height: 35px;
+	float: left;
+	background: url(../images/header_separator.gif) center right no-repeat;
+}
+
+.header .headerMenu li a {
+	font-weight:bold;
+	height: 35px;
+	line-height: 35px;
+	display: block;
+	float: left;
+	padding: 0px 20px;
+	font-size: 16px;
+	color: #f0f0f0;
+	font-family:  "微软雅黑", Arial Black;
+}
+
+.header .headerMenu li a:hover {
+	color: #d64c59;
+	background: url(../images/header_bg.gif) -90px 0px no-repeat;
+}
+
+.header .headerMenu li.home {
+	padding: 0px 20px;
+	background: none;
+}
+
+.header .headerMenu li.home a {
+	width: 48px;
+	height: 35px;
+	display: block;
+	outline: none;
+	background: url(../images/header_bg.gif) 0px -60px no-repeat;
+}
+
+.header .headerMenu li.home a:hover {
+	background: url(../images/header_bg.gif) 0px -90px no-repeat;
+}
+
+.header .headerMenu .menuRight {
+	width: 5px;
+	height: 35px;
+	float: left;
+	background: url(../images/header_bg.gif) -30px 0px no-repeat;
+}
+
+
+.header .userInfo {
+	height: 35px;
+	line-height: 35px;
+}
+
+.header .userInfo a {
+
+}
+
+.header .welcome {
+	color: #666666;
+	font-family: "微软雅黑", Arial Black;
+}
+
+.header .profileIcon {
+}
+
+.header .logoutIcon {
+	height: 25px;
+	width: 51px;
+	float:right; 
+	margin-top: 5px; 
+	margin-right: 30px;
+	background: url(../images/quit.gif)  no-repeat;
+
+}
+
+/* 新增样式 styles */
+.header .sysname {
+	height: 25px;
+	width: 221px;
+	float:right; 
+	margin-right: 30px;
+	background: url(../images/sysname.gif) no-repeat;
+}

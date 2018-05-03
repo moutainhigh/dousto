@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:ehcache="http://www.springmodules.org/schema/ehcache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	<!-- Annotation Initilization -->
+	<context:annotation-config />
+	<!-- 设置需要进行Spring注解扫描的类包 -->
+	<context:component-scan base-package="com.ibm.sc.dao,com.ibm.sc.oms">
+
+<!-- 	<context:exclude-filter type="regex" -->
+<!-- 		expression="com.ibm.sc.service.sys.impl.ResourceServiceImpl"/> -->
+<!-- 			<context:exclude-filter type="regex" -->
+<!-- 		expression="com.ibm.sc.service.sys.impl.RoleServiceImpl"/> -->
+<!-- 			<context:exclude-filter type="regex" -->
+<!-- 		expression="com.ibm.sc.service.content.impl.AdPositionServiceImpl"/> -->
+	</context:component-scan>
+
+	<!-- JDBC参数配置 -->
+	<context:property-placeholder location="classpath:test-jdbc.properties"
+		system-properties-mode="OVERRIDE" ignore-resource-not-found="true" />
+
+	<!-- 数据源配置 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<!-- 设置JDBC驱动名称 -->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<!-- 设置JDBC连接URL -->
+		<property name="url" value="${jdbc.url}" />
+		<!-- 设置数据库用户名 -->
+		<property name="username" value="${jdbc.username}" />
+		<!-- 设置数据库密码 -->
+		<property name="password" value="${jdbc.password}" />
+		<!-- 设置连接池初始值 -->
+		<property name="initialSize" value="5" />
+		<!-- 设置连接池最大值 -->
+		<property name="maxActive" value="100" />
+		<!-- 设置连接池最小空闲值 -->
+		<property name="minIdle" value="20" />
+		<!-- 设置连接池最大空闲值 -->
+		<property name="maxIdle" value="50" />
+	</bean>
+	
+	<bean id="blPersistenceUnitManager"
+		class="com.ibm.sc.jpa.MergingPersistenceUnitManager">
+		<property name="persistenceUnitPostProcessors">
+			<bean class="com.ibm.sc.jpa.MergingPersistenceUnitPostProcessor"/>
+		</property>
+		<property name="defaultDataSource" ref="dataSource" />
+		<property name="persistenceXmlLocations">
+			<list>
+<!-- 				<value>classpath*:META-INF/persistence.xml</value> -->
+				<value>classpath*:META-INF/persistence-oms.xml</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+            <property name="showSql" value="true"/>
+            <property name="generateDdl" value="false"/>
+            <property name="databasePlatform" value="org.hibernate.dialect.OracleDialect"/>
+        </bean>
+		</property>
+		<property name="persistenceUnitManager" ref="blPersistenceUnitManager" />
+		<property name="persistenceUnitName" value="AppPU" />
+	</bean>
+	
+	<!-- 使用注解方式定义事务 -->
+	<tx:annotation-driven proxy-target-class="true"
+		transaction-manager="transactionManager" />
+	<!-- 配置事务管理器 	-->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="test*" propagation="REQUIRED" />
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="load*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 配置哪些类的哪些方法参与事务 -->
+	<aop:config>
+		<aop:advisor pointcut="execution(* com.ibm.sc.dao..*.*(..))"
+			advice-ref="transactionAdvice" />
+	</aop:config>
+</beans>

@@ -1,0 +1,433 @@
+﻿@charset "utf-8";
+
+/***
+ *	IBM List Style
+ *
+ *	http://www.IBM.net
+ *
+ *	Copyright (c) 2008 IBM. All rights reserved.
+ **/
+
+@import url("pager.css");
+
+.body {
+	background-color: #f0f3f4;
+}
+.list .formButton {
+	width: 75px;
+	height: 30px;
+	line-height: 30px;
+	margin-left: 6px;
+	text-align: center;
+	font-size: 12px;
+	cursor: pointer;
+	border: none;
+	background: url(../images/list_bg.gif) 0px -30px repeat-x;
+}
+
+.list .formButton:hover {
+	background: url(../images/list_bg.gif) 0px -60px repeat-x;
+}
+
+.list .listBar {
+	height: 37px;
+	line-height: 37px;
+	clear: both;
+	color: #666666;
+	font-weight: bold;
+	margin-top: 8px;
+	font-family: "微软雅黑", Arial Black;
+	font-size: 14px;
+	letter-spacing: 3px;
+}
+
+.list .listBar h1 {
+	height: 37px;
+	line-height: 37px;
+	font-size: 13px;
+	color: #d1869b;
+}
+
+.listBar h2 {
+	height: 37px;
+	line-height: 37px;
+	font-size: 12px;
+	color: #58666e;
+	text-align: left;
+	background: url(../images/admin_info.png) 0px 0px repeat-x;
+}
+
+.list .listBar .icon {
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
+	display: inline-block;
+	display: -moz-inline-stack;
+	zoom: 1;
+	*display: inline;
+	background: url(../images/list_bg.gif) -30px 0px no-repeat;
+}
+
+.list .listBar .pageInfo {
+	font-weight: normal;
+}
+
+.list .operateBar {
+	clear: both;
+	padding: 3px 0px;
+}
+
+.list .operateBar label {
+	padding-left: 30px;
+}
+
+.list .operateBar .otherButton2 {
+	width: 100px;
+	height: 29px;
+	line-height: 29px;
+	margin-left: 6px;
+	text-align: center;
+	font-size: 12px;
+	cursor: pointer;
+	border: none;
+	background: url(../images/list_bg.gif) 0px -90px repeat-x;
+}
+.list .operateBar .addButton {
+	width: 75px;
+	height: 29px;
+	line-height: 29px;
+	margin-left: 6px;
+	text-align: center;
+	font-size: 12px;
+	cursor: pointer;
+	border: none;
+	background: url(../images/list_bg.gif) 0px -30px repeat-x;
+}
+
+.list .operateBar .addButton:hover {
+	background: url(../images/list_bg.gif) 0px -60px repeat-x;
+}
+
+.list .operateBar .deleteButton, .list .operateBar .editButton, .list .operateBar .previewButton {
+	width: 63px;
+	height: 29px;
+	line-height: 29px;
+	margin-left: 6px;
+	text-align: center;
+	font-size: 12px;
+	cursor: pointer;
+	border: none;
+	background: url(../images/button_bg2.png);
+	/*background: url(../images/list_bg.gif) 0px -30px repeat-x;*/
+}
+
+.list .operateBar .deleteButton:hover, .list .operateBar .editButton:hover, .list .operateBar .previewButton:hover {
+	background: url(../images/button_bg2.png);
+	/*background: url(../images/list_bg.gif) 0px -60px repeat-x;*/
+}
+
+.list .operateBar .searchText {
+	width: 150px;
+	height: 20px;
+	padding: 3px;
+	display: inline-block;
+	_display: inline;
+	background: url(../images/list_bg.gif) -180px -30px no-repeat;
+}
+
+.list .operateBar .searchText input {
+	width: 122px;
+	height: 12px;
+	line-height: 12px;
+	padding: 4px 3px 4px 25px;
+	padding: 5px 5px 3px 25px\0;
+	border: none;
+	background: none;
+}
+
+@-moz-document url-prefix() {
+	.list .operateBar .searchFormText input{
+		padding-top: 3px;
+		height: 18px;
+		line-height: 18px;
+	}
+}
+
+.list .operateBar .searchButton {
+	width: 44px;
+	height: 26px;
+	line-height: 26px;
+	cursor: pointer;
+	border: none;
+	background: url(../images/list_bg.gif) -336px -30px no-repeat;
+}
+
+.list table.listTable {
+	width: 100%;
+	border: 1px solid #f0f0f0;
+	background: #ffffff;
+}
+
+.list table.listTable tr:hover {
+	background-color: #f6f6f6;
+}
+
+.list table.listTable tr.highlight {
+	background-color: #f6f6f6;
+}
+
+.list table.listTable tr.highlightD {
+	background-color: #e6e6e6;
+}
+
+.list table.listTable th {
+	height: 30px;
+	line-height: 29px;
+	padding-left: 5px;
+	font-family: "宋体", Arial;
+	text-align: left;
+	background: #dbdbdb;
+	/* background: url(../images/list_x_bg.gif) 0px -30px repeat-x; */
+}
+
+.th_gray {
+	height: 30px;
+	line-height: 29px;
+	padding-left: 5px;
+	font-family: "宋体", Arial;
+	text-align: left;
+	background-color: #dbdbdb;
+	
+}
+.list table.listTable th.check {
+	width: 15px;
+}
+
+.list table.listTable th .sort {
+	cursor: pointer;
+}
+
+.list table.listTable th .descSort {
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
+	display: inline-block;
+	display: -moz-inline-stack;
+	zoom: 1;
+	*display: inline;
+	/* background: url(../images/list_bg.gif) -60px 0px no-repeat; */
+	background-color: dbdbdb;
+}
+
+.list table.listTable th .ascSort {
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
+	display: inline-block;
+	display: -moz-inline-stack;
+	zoom: 1;
+	*display: inline;
+	/* background: url(../images/list_bg.gif) -90px 0px no-repeat; */
+}
+
+.list table.listTable td {
+	height: 29px;
+	line-height: 29px;
+	padding-left: 5px;
+	color: #666666;
+	word-break: break-all;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.list table.listTable td a {
+	color: #666666;
+}
+
+.list table.listTable td a:hover {
+	color: #dc7a95;
+}
+
+.list .pagerBar {
+	width: 100%;
+	clear: both;
+	padding-top: 5px;
+	padding-bottom: 20px;
+}
+
+.list .noRecord {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	clear: both;
+	color: red;
+	text-align: center;
+	border-bottom: 1px solid #cccccc;
+}
+
+.list .pagerBar .deleteButton {
+	width: 63px;
+	height: 29px;
+	line-height: 29px;
+	float: left;
+	margin-left: 6px;
+	text-align: center;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	background: url(../images/list_bg.gif) -90px -30px repeat-x;
+}
+
+.list .pagerBar .deleteButton:hover {
+	background: url(../images/list_bg.gif) -90px -60px repeat-x;
+}
+
+.list .pagerBar .editButton {
+	width: 63px;
+	height: 29px;
+	line-height: 29px;
+	float: left;
+	margin-left: 6px;
+	text-align: center;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	background: url(../images/list_bg.gif) -90px -30px repeat-x;
+}
+
+.list .pagerBar .editButton:hover {
+	background: url(../images/list_bg.gif) -90px -60px repeat-x;
+}
+
+.list .pagerBar .addButton {
+	width: 103px;
+	height: 29px;
+	line-height: 29px;
+	float: left;
+	margin-left: 6px;
+	text-align: center;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	background: url(../images/list_bg.gif) 0px -90px repeat-x;
+}
+
+.list .pagerBar .addButton:hover {
+	background: url(../images/list_bg.gif) 0px -120px repeat-x;
+}
+
+.list .downIcon {
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
+	display: inline-block;
+	display: -moz-inline-stack;
+	zoom: 1;
+	*display: inline;
+	background: url(../images/list_bg.gif) no-repeat -120px 0px;
+}
+
+.list .upIcon {
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
+	display: inline-block;
+	display: -moz-inline-stack;
+	zoom: 1;
+	*display: inline;
+	background: url(../images/list_bg.gif) no-repeat -150px 0px;
+}
+
+.list .operateBar .otherButton {
+	width: 85px;
+	height: 29px;
+	line-height: 29px;
+	margin-left: 6px;
+	text-align: center;
+	font-size: 12px;
+	cursor: pointer;
+	border: none;
+	background: url(../images/list_bg.gif) 0px -30px repeat-x;
+}
+
+/* 新加按钮 */
+
+.button_1{
+	
+
+}
+.button_1:hover		{
+}
+
+.button {
+  color: #464545;
+  background-color: #d4d4d4;
+  border-color: #EEE;
+  width: 100px;
+  font-size: 14px;
+  font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  text-decoration: none;
+  text-align: center;
+  line-height: 29px;
+  height: 29px;
+  padding: 0 20px;
+  margin: 0;
+  display: inline-block;
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition-property: all;
+          transition-property: all;
+  -webkit-transition-duration: .3s;
+          transition-duration: .3s;
+		font-family: 微软雅黑, Arial, Helvetica, sans-serif;
+  }
+  .button:visited {
+    color: #464545; }
+  .button:hover, .button:focus {
+    background-color: #c4c3c3;
+    text-decoration: none;
+    outline: none; 
+	font-family: 微软雅黑, Arial, Helvetica, sans-serif;}
+
+
+
+
+.button_red {
+  color: #ffffff;
+  background-color: #dc7a95;
+  border-color: #EEE;
+  width: 100px;
+  font-size: 14px;
+  font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  text-decoration: none;
+  text-align: center;
+  line-height: 29px;
+  height: 29px;
+  padding: 0 20px;
+  margin: 0;
+  display: inline-block;
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition-property: all;
+          transition-property: all;
+  -webkit-transition-duration: .3s;
+          transition-duration: .3s;
+		font-family: 微软雅黑, Arial, Helvetica, sans-serif;
+  }
+  .button_red:visited {
+    color: #464545; }
+  .button_red:hover, .button:focus {
+    background-color: #ce6381;
+    text-decoration: none;
+    outline: none;
+	font-family: 微软雅黑, Arial, Helvetica, sans-serif;
+}
+  
+

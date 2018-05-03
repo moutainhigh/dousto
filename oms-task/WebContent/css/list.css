@@ -1,0 +1,420 @@
+@charset "utf-8";
+
+@import url("pager.css");
+
+.body {
+	padding-left: 10px;
+	background-color: f0f3f4;
+}
+
+.formButton {
+	width: 75px;
+	height: 30px;
+	line-height: 30px;
+	margin-left: 6px;
+	text-align: center;
+	font-size: 12px;
+	cursor: pointer;
+	border: none;
+	background: url(../images/list_bg.gif) 0px -30px repeat-x;
+}
+
+.formButton:hover {
+	background: url(../images/list_bg.gif) 0px -60px repeat-x;
+}
+
+.listBar {
+	height: 37px;
+	line-height: 37px;
+	clear: both;
+	color: #666666;
+	font-weight: bold;
+	margin-top: 8px;
+	font-family: "微软雅黑", Arial Black;
+	font-size: 14px;
+	letter-spacing: 3px;
+}
+
+.listBar h1 {
+	height: 37px;
+	line-height: 37px;
+	font-size: 13px;
+	color: #d1869b;
+}
+
+.listBar h2 {
+	height: 37px;
+	line-height: 37px;
+	font-size: 12px;
+	color: #58666e;
+	text-align: left;
+	background: url(../images/admin_info.png) 0px 0px repeat-x;
+}
+
+.listBar .icon {
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
+	display: inline-block;
+	display: -moz-inline-stack;
+	zoom: 1;
+	*display: inline;
+	background: url(../images/list_bg.gif) -30px 0px no-repeat;
+}
+
+.listBar .pageInfo {
+	font-weight: normal;
+}
+
+.operateBar {
+	clear: both;
+	padding: 3px 0px;
+	line-height:30px;
+	background: #ffffff;
+}
+
+.operateBar label {
+	padding-left: 30px;
+}
+
+.operateBar .addButton, .operateBar .batchCancelPublishButton {
+	width: 75px;
+	height: 29px;
+	line-height: 29px;
+	margin-left: 6px;
+	text-align: center;
+	font-size: 12px;
+	cursor: pointer;
+	border: none;
+	background: url(../images/list_bg.gif) 0px -30px repeat-x;
+}
+
+.operateBar .addButton:hover, .operateBar .batchCancelPublishButton:hover {
+	background: url(../images/list_bg.gif) 0px -60px repeat-x;
+}
+
+.operateBar .deleteButton, .operateBar .editButton, .operateBar .batchPublishButton {
+	width: 63px;
+	height: 29px;
+	line-height: 29px;
+	margin-left: 2px;
+	text-align: center;
+	font-size: 12px;
+	cursor: pointer;
+	border: none;
+	background: url(../images/button_bg2.png);
+	/*background: url(../images/list_bg.gif) 0px -30px repeat-x;*/
+}
+
+.operateBar .deleteButton:hover, .operateBar .editButton:hover, .operateBar .batchPublishButton:hover {
+	background: url(../images/button_bg2.png);
+	/*background: url(../images/list_bg.gif) 0px -60px repeat-x;*/
+}
+
+.operateBar .searchText {
+	width: 150px;
+	height: 20px;
+	padding: 3px;
+	display: inline-block;
+	_display: inline;
+	background: url(../images/list_bg.gif) -180px -30px no-repeat;
+}
+
+.operateBar .searchText input {
+	width: 122px;
+	height: 12px;
+	line-height: 12px;
+	padding: 4px 3px 4px 25px;
+	padding: 5px 5px 3px 25px\0;
+	border: none;
+	background: none;
+}
+
+@-moz-document url-prefix() {
+	.operateBar .searchFormText input{
+		padding-top: 3px;
+		height: 18px;
+		line-height: 18px;
+	}
+}
+
+.operateBar .searchButton {
+	width: 44px;
+	height: 26px;
+	line-height: 26px;
+	cursor: pointer;
+	border: none;
+	background: url(../images/list_bg.gif) -336px -30px no-repeat;
+}
+
+table.listTable {
+	width: 100%;
+	border: 1px solid #dbdbdb;
+	background: #ffffff;
+}
+
+table.listTable tr:hover {
+	background-color: #f6f6f6;
+}
+
+table.listTable tr.highlight {
+	background-color: #f6f6f6;
+}
+
+table.listTable tr.highlightD {
+	background-color: #e6e6e6;
+}
+
+table.listTable th {
+	height: 30px;
+	line-height: 29px;
+	padding-left: 5px;
+	font-family: "宋体", Arial;
+	text-align: left;
+	background: #dbdbdb;
+	/* background: url(../images/list_x_bg.gif) 0px -30px repeat-x; */
+}
+
+.th_gray {
+	height: 30px;
+	line-height: 29px;
+	padding-left: 5px;
+	font-family: "宋体", Arial;
+	text-align: left;
+	background-color: #dbdbdb;
+	
+}
+
+table.listTable th.check {
+	width: 15px;
+}
+
+table.listTable th .sort {
+	cursor: pointer;
+}
+
+table.listTable th .descSort {
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
+	display: inline-block;
+	display: -moz-inline-stack;
+	zoom: 1;
+	*display: inline;
+	/* background: url(../images/list_bg.gif) -60px 0px no-repeat; */
+	background-color: dbdbdb;
+}
+
+table.listTable th .ascSort {
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
+	display: inline-block;
+	display: -moz-inline-stack;
+	zoom: 1;
+	*display: inline;
+	/* background: url(../images/list_bg.gif) -90px 0px no-repeat; */
+}
+
+table.listTable td {
+	height: 29px;
+	line-height: 29px;
+	padding-left: 5px;
+	color: #666666;
+	word-break: break-all;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+table.listTable td a {
+	color: #336699;
+}
+
+table.listTable td a:hover {
+	color: #a1224b;
+}
+
+.pagerBar {
+	width: 100%;
+	clear: both;
+	padding-top: 5px;
+	padding-bottom: 20px;
+}
+
+.noRecord {
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	clear: both;
+	color: red;
+	text-align: center;
+	border-bottom: 1px solid #cccccc;
+}
+
+.pagerBar .deleteButton {
+	width: 63px;
+	height: 29px;
+	line-height: 29px;
+	float: left;
+	margin-left: 6px;
+	text-align: center;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	background: url(../images/list_bg.gif) -90px -30px repeat-x;
+}
+
+.pagerBar .deleteButton:hover {
+	background: url(../images/list_bg.gif) -90px -60px repeat-x;
+}
+
+.pagerBar .editButton {
+	width: 63px;
+	height: 29px;
+	line-height: 29px;
+	float: left;
+	margin-left: 6px;
+	text-align: center;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	background: url(../images/list_bg.gif) -90px -30px repeat-x;
+}
+
+.pagerBar .editButton:hover {
+	background: url(../images/list_bg.gif) -90px -60px repeat-x;
+}
+
+.pagerBar .addButton {
+	width: 103px;
+	height: 29px;
+	line-height: 29px;
+	float: left;
+	margin-left: 6px;
+	text-align: center;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	background: url(../images/list_bg.gif) 0px -90px repeat-x;
+}
+
+.pagerBar .addButton:hover {
+	background: url(../images/list_bg.gif) 0px -120px repeat-x;
+}
+
+.downIcon {
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
+	display: inline-block;
+	display: -moz-inline-stack;
+	zoom: 1;
+	*display: inline;
+	background: url(../images/list_bg.gif) no-repeat -120px 0px;
+}
+
+.upIcon {
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
+	display: inline-block;
+	display: -moz-inline-stack;
+	zoom: 1;
+	*display: inline;
+	background: url(../images/list_bg.gif) no-repeat -150px 0px;
+}
+/*PRD-97 默认不显示过期的促销*/
+.pagerBar .promotionButton {
+	width: 110px;
+	height: 29px;
+	line-height: 29px;
+	float: right;
+	margin-left: 6px;
+	text-align: center;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	background: url(../images/list_bg.gif) 0px -90px repeat-x;
+}
+
+/* 新加按钮 */
+
+.button_1{
+	
+
+}
+.button_1:hover		{
+}
+
+.button {
+  color: #464545;
+  background-color: #d4d4d4;
+  border-color: #EEE;
+  width: 100px;
+  font-size: 14px;
+  font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  text-decoration: none;
+  text-align: center;
+  line-height: 29px;
+  height: 29px;
+  padding: 0 20px;
+  margin: 0;
+  display: inline-block;
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition-property: all;
+          transition-property: all;
+  -webkit-transition-duration: .3s;
+          transition-duration: .3s;
+		font-family: 微软雅黑, Arial, Helvetica, sans-serif;
+  }
+  .button:visited {
+    color: #464545; }
+  .button:hover, .button:focus {
+    background-color: #c4c3c3;
+    text-decoration: none;
+    outline: none; 
+	font-family: 微软雅黑, Arial, Helvetica, sans-serif;}
+
+
+
+
+.button_red {
+  color: #ffffff;
+  background-color: #dc7a95;
+  border-color: #EEE;
+  width: 100px;
+  font-size: 14px;
+  font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  text-decoration: none;
+  text-align: center;
+  line-height: 29px;
+  height: 29px;
+  padding: 0 20px;
+  margin: 0;
+  display: inline-block;
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition-property: all;
+          transition-property: all;
+  -webkit-transition-duration: .3s;
+          transition-duration: .3s;
+		font-family: 微软雅黑, Arial, Helvetica, sans-serif;
+  }
+  .button_red:visited {
+    color: #464545; }
+  .button_red:hover, .button:focus {
+    background-color: #ce6381;
+    text-decoration: none;
+    outline: none;
+	font-family: 微软雅黑, Arial, Helvetica, sans-serif;
+}
+  
+

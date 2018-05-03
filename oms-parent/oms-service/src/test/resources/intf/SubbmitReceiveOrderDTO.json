@@ -1,0 +1,81 @@
+{
+    "channelId": "1",
+    "couponsNo": "X20180312",
+    "totalPromo":"50.00",
+    "discountTotal": "990.00",
+    "ifPayOnArrival": "0",
+    "memberId": "2709",
+    "memberNo": "123",
+    "needInvoince": "0",
+    "orderSource": "WX",
+    "orderTime": "2018-03-29 17:15:36",
+    "orderType": "normal",  
+    "receiveOrderItemDTOs": [
+        {
+           
+            "barCode": "6903148091500",
+            "bundleItemList": [
+                {
+                    "count": 1,
+                    "itemType": "GIFT",
+                    "price": "100",
+                    "productId": "60786",
+                    "skuId": "60786"
+                }
+            ],
+            "commodityName": "潘婷乳液修复全天候护发凝乳免洗型(300ml)-26-紫色",
+            "count": 1,
+            "itemType": "SINGLE",
+            "price": "2500.00",
+            "productCategory": "美妆",
+            "productId": "71156",
+            "skuId": "60456",
+            "skuNo": "P2150200138722S1",
+            "supplierCode": "",
+            "productPropertyFlag":"0",
+            "saleUnit":"支",
+            "commodityCode":"test-product-1",
+            "weight":"0.01"
+        },
+        {
+           
+            "barCode": "6917246007950",
+            "commodityName": "曼秀雷敦男士润唇膏(天然型)(3.5g)-蓝色-39",
+            "count": 1,
+            "itemType": "SINGLE",
+            "price": "1000.00",
+            "productCategory": "美妆",
+            "productId": "71487",
+            "skuId": "60786",
+            "skuNo": "P2150400138126S1",
+            "supplierCode": "",
+            "productPropertyFlag":"0",
+            "saleUnit":"支",
+            "commodityCode":"test-product-2",
+            "weight":"0.01"
+            
+        }
+    ],
+    "recipientInformationDTO": {
+        "addressCode": "10019",
+        "email": "hao007@163.com",
+        "mobPhoneNum": "13317717219987",
+        "phoneNum": "0411-99189",
+        "postCode": "116000",
+        "userName": "test1"
+    },
+    "saleStoreCode": "saleStoreCode123",
+    "salespersonNo": "NO1111111",
+    "shipStoreCode": "shipStoreCode1234",
+    "storeId": "1111",
+    "totalOrderAmount": "7000.00",
+    "totalPayAmount": "6960.00",
+    "totalPoint": "100",
+	"totalPointAmount":"0.1",
+    "totalProductCount": "1",
+    "totalProductPrice": "7000.00",
+    "zoneId": "331100",
+    "memberVipCardLevel":"1",
+    "merchantType":"1",
+    "distributeType":"1"
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:ehcache="http://www.springmodules.org/schema/ehcache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd 
+	http://www.springmodules.org/schema/ehcache 
+	http://www.springmodules.org/schema/cache/springmodules-ehcache.xsd">
+
+	<!-- <bean id="memCachedManager" class="com.ibm.sc.cache.MemCachedFactoryBean">
+	<property name="servers">
+           <list>
+             <value>192.168.1.60:11211</value>
+			  <value>127.0.0.1:11211</value>
+           </list>
+       </property>
+	   	<property name="weights">
+           <list>
+              <value>3</value>
+			  <value>3</value>
+           </list>
+       </property>
+       <property name="initConn">
+           <value>20</value>
+       </property>
+       <property name="minConn">
+           <value>100</value>
+       </property>
+       <property name="maxConn">
+           <value>250</value>
+       </property>
+	   <property name="maxIdle">
+           <value>21600000</value>
+       </property>
+       <property name="maintSleep">
+           <value>30</value>
+       </property>
+       <property name="nagle">
+           <value>false</value>
+       </property>
+       <property name="socketTO">
+           <value>3000</value>
+       </property>
+	   <property name="socketConnectTO">
+           <value>3000</value>
+       </property>
+ 		<property name="compressEnable">
+           <value>true</value>
+       </property>
+       <property name="compressThreshold">
+           <value>4096</value>
+       </property>
+	   <property name="bufferSize">
+           <value>524800</value>
+       </property>
+	</bean> -->
+
+</beans>

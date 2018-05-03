@@ -1,0 +1,229 @@
+/* CSS Document */
+body{
+	font-size:12px;
+	font-family: 微软雅黑, Arial, Helvetica, sans-serif;
+	background-color:#ffffff;
+	margin:0px;
+	line-height: 1.5;
+	}
+
+
+#main{
+	background-image:url(../images/bg-login2.png);
+	width:1098px;
+	height:768px;
+	margin:0px auto;
+	}
+		
+.login{
+	width:405px;
+	padding-top:103px;
+	padding-right:416px;
+	float:right;
+	width:316px; height:380px; 
+
+	}
+
+
+#foot {
+	clear: both;
+	height: 30px;
+	width: 1098px;
+	margin-top: 900px;
+    color:#8f9090;
+
+}
+
+
+ /*用户登录中心的字色*/
+.login-dazi{
+	font-size:25px;
+	font-family:"微软雅黑";
+	color:#1d79bf;
+	font-weight: bold;
+	padding-left:7px;
+	}
+	
+
+ /*用户名字的字色*/
+.login-zi{
+	font-size:16px;
+	font-family:"宋体";
+	color:#625f5f;
+	font-weight: bold;
+	}
+	
+.login-tishi{
+	font-size:18px;
+	font-family:"微软雅黑";
+	color:#4b4b4b;
+	font-weight: bold;
+	}
+
+.login input{padding-left:10px;line-height: 35px;}
+ /*input use*/
+ .input_on{
+    padding:0px 0px 0pt 0px;
+    height:35px;
+	width: 241px;
+    border:0px solid;
+    background-color:#fcfcd7;
+	background-image:url(../images/input_out_use_on.png);
+    }
+ .input_off{
+    padding:0px 0px 0pt 0px;
+    height:35px;
+	width: 241px;
+    border:0px solid ;
+    background-color:#FFF;
+	background-image:url(../images/input_out_use.png);
+
+    }
+ .input_move{
+    padding:0px 0px 0pt 0px;
+    height:35px;
+	width: 241px;
+    border:0px solid;
+    background-color:#fcfcd7;
+	background-image:url(../images/input_out_use_on.png);
+    }
+ .input_out{
+    /*height:16px;默认高度*/
+    padding:0px 0px 0pt 0px;
+    height:35px;
+	width: 241px;
+    border:0px solid #5cc6f2;
+    background-color:#FFF;
+	background-image:url(../images/input_out_use.png);
+    }
+	
+	
+ /*input pass*/
+ .input2_off{
+    padding:0px 0px 0pt 0px;
+    height:35px;
+	width: 241px;
+    border:0px solid ;
+    background-color:#FFF;
+	background-image:url(../images/input_out_pass.png);
+
+    }
+ .input2_out{
+    /*height:16px;默认高度*/
+    padding:0px 0px 0pt 0px;
+    height:35px;
+	width: 241px;
+    border:0px solid #469ced;
+    background-color:#FFF;
+	background-image:url(../images/input_out_pass.png);5cc6f2
+    }
+	
+	
+	
+	/*input validation*/
+ .input3_on{
+    padding:0px 0px 0pt 0px;
+    height:35px;
+	width: 91px;
+    border:0px solid;
+    background-color:#fcfcd7;
+	background-image:url(../images/input_out_validation_on.png);
+	text-transform: uppercase;
+    }
+ .input3_off{
+    padding:0px 0px 0pt 0px;
+    height:35px;
+	width: 91px;
+    border:0px solid ;
+    background-color:#FFF;
+	background-image:url(../images/input_out_validation_on.png);
+	text-transform: uppercase;
+    }
+ .input3_move{
+    padding:0px 0px 0pt 0px;
+    height:35px;
+	width: 91px;
+    border:0px solid;
+    background-color:#fcfcd7;
+	background-image:url(../images/input_out_validation_on.png);
+	text-transform: uppercase;
+    }
+ .input3_out{
+    padding:0px 0px 0pt 0px;
+    height:35px;
+	width: 91px;
+    border:0px solid #5cc6f2;
+    background-color:#FFF;
+	background-image:url(../images/input_out_validation.png);
+	text-transform: uppercase;
+    }
+	
+
+ /*注册的大灰色*/
+.zhuce-zi{
+	font-size:18px;
+	font-family:"微软雅黑";
+	color:#8c8a8a;
+
+	padding-left:20px;
+	}
+	
+	.zhuce-zi2{
+	font-size:14px;
+	font-family:"微软雅黑";
+	color:#8c8a8a;
+
+	}
+
+
+/* 登录-按钮 */
+
+.login_button				{
+	border: 0px solid #999;
+	-moz-border-radius: 5px;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 20px;
+	width: 250px;
+	height:35px;
+	background-image: url(../images/but-login.png);
+	background-repeat: repeat-x;
+	background-position: center top;
+	font-family: 微软雅黑, Arial, Helvetica, sans-serif;
+	padding-bottom:9px;
+}
+.login_button:hover		{
+	border: 0px solid #999;
+	-moz-border-radius: 5px;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 20px;
+	background-image: url(../images/but-login_on.png);
+	background-repeat: repeat-x;
+	background-position: center top;
+	font-family: 微软雅黑, Arial, Helvetica, sans-serif;
+	padding-bottom:9px;
+}
+
+	
+/* 注册-按钮 */
+
+.button				{ background: url(../images/button-bg.png) repeat-x top center; border: 0px solid #999;
+					  -moz-border-radius: 5px; padding: 5px; color: black; font-weight: normal;font-size: 12px;  width: 96px; height:27px; }
+.button:hover		{ background: white url(../images/button-bg_on.png); color: black; }
+
+
+
+
+a {font-size:12px}
+a:link {color: #333333; text-decoration:none;}
+a:active:{color:#666666; }
+a:visited {color:#666666;text-decoration:none;} 
+a:hover {color: #000066; text-decoration:underline;} 
+
+
+/*-忘记密码滑动后字色链接样式*/
+.pass {font-size:12px}
+.pass:link {color: #666666; text-decoration:none;}
+.pass:visited {color:#666666;text-decoration:none;} 
+.pass:hover {color: #ff7200; text-decoration:underline;} 
