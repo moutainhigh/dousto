@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xsi:schemaLocation="http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.0.xsd
+
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	
+	<!--  同步订单支付明细  -->
+	<int:channel id="settleOrRefundChannel"/>
+		<!--  endHandler -->
+	<int:channel id="endChannel"/>
+	<!--  同步订单商品明细  -->
+	<int:channel id="paidOrCancelChannel"/>
+	
+	<int:inbound-channel-adapter ref="paidOrCancelOrderService" method="query" channel="paidOrCancelChannel">
+		<int:poller fixed-rate="300000"> <!--每5分钟扫一次-->
+			<int:transactional/>
+		</int:poller>
+	</int:inbound-channel-adapter>
+	
+		<!--  同步订单支付明细  -->
+	<int:service-activator input-channel="paidOrCancelChannel" output-channel="endChannel"
+		ref="settleOrRefundHandler" />
+			
+	<int:service-activator input-channel="endChannel" ref="endHandler" />
+
+	<!-- end 同步订单商品明细  -->	
+
+	<bean id="settleOrRefundHandler"  class="com.ibm.oms.integration.order.jdbc.OrderJdbcMessageHandler">
+		<property name="dataSource" ref="toptestDataSource" />
+		<property name="selectSqla"
+			value="select * from tc_ufa_file where tc_ufa001=:tc_ufa001 and  tc_ufa002=:tc_ufa002  and tc_ufa003=:tc_ufa003 " />
+		<property name="insertSqla"
+			value="insert into tc_ufa_file(tc_ufa001,tc_ufa002,tc_ufa003,tc_ufa004,tc_ufa005,tc_ufa006,tc_ufa007,tc_ufa008,tc_ufa009,tc_ufa010,tc_ufa011,tc_ufa012,tc_ufa013,tc_ufa014,tc_ufa015,tc_ufa016,tc_ufa017,tc_ufa018,tc_ufa019,tc_ufa020,trans_date,trans_time,trans_flag,trans_crea,tc_ufa021,tc_ufa022,tc_ufa023,tc_ufa024) values(:tc_ufa001,:tc_ufa002,:tc_ufa003,:tc_ufa004,:tc_ufa005,:tc_ufa006,:tc_ufa007,:tc_ufa008,:tc_ufa009,:tc_ufa010,:tc_ufa011,:tc_ufa012,:tc_ufa013,:tc_ufa014,:tc_ufa015,:tc_ufa016,:tc_ufa017,:tc_ufa018,:tc_ufa019,:tc_ufa020,:trans_date,:trans_time,:trans_flag,:trans_crea,:tc_ufa021,:tc_ufa022,:tc_ufa023,:tc_ufa024)" />
+		
+		<property name="selectSql"
+			value="select * from tc_ufb_file where tc_ufb001=:tc_ufb001 and tc_ufb002=:tc_ufb002" />
+		<property name="insertSql"
+			value="insert into tc_ufb_file (tc_ufb001, tc_ufb002,tc_ufb003, tc_ufb004,trans_date,trans_time,trans_flag,trans_crea,tc_ufb005,tc_ufb006,tc_ufb007,tc_ufb008,tc_ufb009,tc_ufb010,tc_ufb011,tc_ufb012) values (:tc_ufb001, :tc_ufb002,:tc_ufb003, :tc_ufb004,:trans_date,:trans_time,:trans_flag,:trans_crea,:tc_ufb005,:tc_ufb006,:tc_ufb007,:tc_ufb008,:tc_ufb009,:tc_ufb010,:tc_ufb011,:tc_ufb012)" />
+	</bean>
+	
+	<bean id="endHandler" class="com.ibm.oms.integration.order.jdbc.OrderEndJdbcMessageHandler">
+		<property name="dataSource" ref="dataSource" />
+		<property name="updateSql"
+			value="update  ORDER_STATUS_SYNC_LOG set sync_flag ='Y',date_updated=sysdate  where id=:id and sync_flag='P' " />
+	</bean>
+	<!-- end of end handler -->
+	
+	
+	<bean id="settleOrRefundOrderService" class="com.ibm.oms.integration.order.handler.SettleOrRefundOrderServiceHandler">
+		<!--  收银员, properties配置 --> 
+	    <property name="cashier" value="572" />
+	    <property name="env" value="prd" />
+	</bean>
+	
+	<bean id="paidOrCancelOrderService" class="com.ibm.oms.integration.order.handler.PaidOrCancelOrderServiceHandler">
+		<property name="env" value="prd" />
+	</bean>
+
+</beans>

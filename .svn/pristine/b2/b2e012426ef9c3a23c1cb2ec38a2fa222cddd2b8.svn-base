@@ -1,0 +1,98 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://cxf.apache.org/jaxrs
+		http://cxf.apache.org/schemas/jaxrs.xsd">
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	
+	<import resource="classpath:cxf-config.xml" />
+
+	<jaxrs:server id="restfulServiceContainer" address="/">
+		<jaxrs:providers>
+			<bean class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter">
+				<property name="allowHeaders">
+					<ref bean="headerNameSessionId"/>
+				</property>
+				<property name="exposeHeaders">
+					<ref bean="headerNameSessionId"/>
+				</property>
+				<property name="allowOrigins">
+					<value>*</value>
+				</property>
+			</bean>
+			<!-- <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider"/> -->
+			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
+			<bean class="com.ibm.sc.rs.providers.DateParamConverter"/>
+		</jaxrs:providers>
+		<jaxrs:serviceBeans>
+			<ref bean="userRsService"/>
+			<ref bean="systemRsService"/>
+			<ref bean="btcOmsReceiveOrderService"/>
+			<ref bean="btcOmsReturnChangeOrderService"/>
+			<ref bean="wmsOmsReceiveCostPriceService"/>
+			<ref bean="wmsOmsReceiveInspectStatusService"/>
+			<ref bean="wmsOmsReceiveLogisticsService"/>
+			<ref bean="orderReceivePaymentService"/>
+			<ref bean="omsQueryOrderInfoService"/>
+			<ref bean="bbcOmsOrderService"/>
+			<ref bean="wdQueryOrderStatusService"/>
+			<ref bean="onlinePayOrderService"/>
+			<ref bean="offlinePayOrderService"/>
+			<ref bean="omsOrderInfoService"/>
+			<ref bean="omsOrderLogisticsService"/>
+		</jaxrs:serviceBeans>
+	</jaxrs:server>
+	<aop:config>
+		<aop:advisor pointcut="execution(* com.ibm.sc.rs.service..*.*(..))"
+			advice-ref="transactionAdvice" />
+	</aop:config>
+	
+	<!--
+	 <aop:config>
+        <aop:aspect ref="sessionRequiredInterceptor">
+            <aop:pointcut id="sessionRequiredInterceptorMethods" expression="@annotation(com.ibm.sc.ws.sys.SessionRequired)"/>
+            <aop:around pointcut-ref="sessionRequiredInterceptorMethods" method="checkSession"/>
+        </aop:aspect>
+    </aop:config>
+	-->
+	
+	<!-- <aop:config>
+		<aop:advisor pointcut="execution(* com.ibm.sc.ws..*.execute(..))"
+			advice-ref="exceptionInterceptor" order="0"/>
+	</aop:config>
+	
+	<aop:config>
+		<aop:advisor pointcut="execution(@com.ibm.sc.ws.sys.WSTransactional * execute(..))"
+			advice-ref="transactionAdvice" order="10"/>
+	</aop:config>
+	
+	<aop:config>
+		<aop:advisor pointcut="execution(* com.ibm.sc.ws..*.execute(..))"
+			advice-ref="resquestHeaderInterceptor" order="20"/>
+	</aop:config>
+	
+	<aop:config>
+		<aop:advisor pointcut="execution(@com.ibm.sc.ws.sys.SessionRequired * execute(..))"
+			advice-ref="sessionRequiredInterceptor" order="30"/>
+	</aop:config>
+	
+    <aop:config>
+		<aop:advisor pointcut="execution(@com.ibm.sc.ws.sys.WSCached * execute(..))"
+			advice-ref="cacheInterceptor" order="40"/>
+	</aop:config>
+	
+	<aop:config>
+		<aop:advisor pointcut="execution(* com.ibm.sc.ws..*.execute(..))"
+			advice-ref="responseHeaderInterceptor" order="50"/>
+	</aop:config> -->
+	
+</beans>

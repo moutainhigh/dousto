@@ -1,0 +1,18 @@
+.errorBox .errorDetail {
+    top: auto;
+    left: auto;
+}
+
+.errorBox .errorContent {
+    color: #A1224B;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.errorBox .errorUrl {
+    color: #333333;
+}
+
+.errorBox .errorUrl a {
+    color: #A1224B;
+}

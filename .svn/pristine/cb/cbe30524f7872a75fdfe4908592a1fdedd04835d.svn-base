@@ -1,0 +1,339 @@
+package com.ibm.sc.oms.service.test;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import com.beans.stock.OmsSOInfo;
+import com.beans.stock.StockLockByOms;
+import com.beans.stock.StockUnLockByOms;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ibm.oms.intf.intf.BtcOmsReceiveOrderDTO;
+import com.ibm.oms.intf.intf.BtcPayDTO;
+import com.ibm.oms.intf.intf.CouponPayDTO;
+import com.ibm.oms.intf.intf.InventoryResendMsgDTO;
+import com.ibm.oms.intf.intf.MemberPayDTO;
+import com.ibm.oms.intf.intf.OMSStatusUpdateDTO;
+import com.ibm.oms.intf.intf.SupportResend;
+import com.ibm.oms.intf.intf.TmsOrderDTO;
+import com.ibm.oms.intf.intf.TmsPayDTO;
+import com.ibm.oms.intf.intf.TmsStatusDTO;
+import com.ibm.oms.intf.intf.TransportCompParam;
+import com.ibm.oms.intf.intf.WmsOmsReceiveInspectionResultDTO;
+import com.ibm.oms.intf.intf.WmsOmsReceiveLogisticsDTO;
+import com.ibm.oms.intf.intf.WmsReceiveCostPriceDTO;
+import com.ibm.oms.intf.intf.inner.OrderItemDTO;
+import com.ibm.oms.intf.intf.inner.OrderItemSnapShotDTO;
+import com.ibm.oms.intf.intf.inner.OrderMainDTO;
+import com.ibm.oms.intf.intf.inner.OrderSubDTO;
+import com.ibm.oms.service.util.XMLConverter;
+
+/**
+ * @author pjsong
+ * 
+ */
+@Component
+public class CommonTestUtil extends BaseTest {
+    private static final Logger logger = LoggerFactory.getLogger(CommonTestUtil.class);
+    @Autowired
+    XMLConverter xmlConverterOrder;
+//    @Autowired
+//    XMLConverter xmlConverterPay;
+    @Autowired
+    XMLConverter xmlConverterStatus;
+    @Autowired
+    OmsTestDataBuilder omsTestDataBuilder;
+    ArrayList dontValidateClazz = new ArrayList<Class>();
+
+    private HashMap<String, Class> pathClazzMap = new HashMap<String, Class>();
+
+    {
+        dontValidateClazz.add(StockLockByOms.class);
+
+        pathClazzMap.put(CommonTestConst.fpBtcOmsReceiveOrder, BtcOmsReceiveOrderDTO.class);
+        pathClazzMap.put(CommonTestConst.fpRelInvLockJson, StockLockByOms.class);
+        pathClazzMap.put(CommonTestConst.fpRelInvUnLockJson, StockUnLockByOms.class);
+        pathClazzMap.put(CommonTestConst.fpRelInvDeductJson, OmsSOInfo.class);
+        pathClazzMap.put(CommonTestConst.fpInvResend, InventoryResendMsgDTO.class);
+        pathClazzMap.put(CommonTestConst.fpBtcPay, BtcPayDTO.class);
+        pathClazzMap.put(CommonTestConst.fpWmsStatus, WmsOmsReceiveLogisticsDTO.class);
+        pathClazzMap.put(CommonTestConst.fpMem03, MemberPayDTO.class);
+        pathClazzMap.put(CommonTestConst.fpPromo01, CouponPayDTO.class);
+        pathClazzMap.put(CommonTestConst.fpWmsCost, List.class);
+        pathClazzMap.put(CommonTestConst.fpWmsInspec, WmsOmsReceiveInspectionResultDTO.class);
+        pathClazzMap.put(CommonTestConst.fpSupportResend, SupportResend.class);
+
+        pathClazzMap.put(CommonTestConst.fpTmsOrderXml, TmsOrderDTO.class);
+        pathClazzMap.put(CommonTestConst.fpTmsPayJson, TmsPayDTO.class);
+        pathClazzMap.put(CommonTestConst.fpTmsStatusXml, TmsStatusDTO.class);
+        pathClazzMap.put(CommonTestConst.fpOmsStatusUpdate, OMSStatusUpdateDTO.class);
+    }
+
+    @Test
+    public void genSampleJsonAll() {
+        genJsonFile(CommonTestConst.fpBtcOmsReceiveOrder);
+        genJsonFile(CommonTestConst.fpBtcPay);
+        genJsonFile(CommonTestConst.fpRelInvLockJson);
+        genJsonFile(CommonTestConst.fpRelInvUnLockJson);
+        genJsonFile(CommonTestConst.fpRelInvDeductJson);
+        genJsonFile(CommonTestConst.fpWmsStatus);
+        genJsonFile(CommonTestConst.fpWmsCost);
+        genJsonFile(CommonTestConst.fpWmsInspec);
+        genJsonFile(CommonTestConst.fpInvResend);
+        genJsonFile(CommonTestConst.fpSupportResend);
+        genJsonFile(CommonTestConst.fpMem03);
+        genJsonFile(CommonTestConst.fpPromo01);
+        genJsonFile(CommonTestConst.fpOmsStatusUpdate);
+        genJsonFile(CommonTestConst.fpTmsStatusUpdate);
+        genJsonFile(CommonTestConst.fpTmsPayJson);
+        genXmlFile(CommonTestConst.fpTmsOrderXml, xmlConverterOrder);
+//        genXmlFile(CommonTestConst.fpTmsPayXml, xmlConverterPay);
+        genXmlFile(CommonTestConst.fpTmsStatusXml, xmlConverterStatus);
+
+    }
+
+    private <T> void genJsonFile(String path) {
+        ObjectMapper mapper = new ObjectMapper();
+        File f = new File(path);
+        Class clazz = pathClazzMap.get(path);
+        if (!f.exists()) {
+            try {
+                T dto = buildJsonInput(clazz);
+                mapper.writeValue(f, dto);
+            } catch (Exception e) {
+                logger.info("{}", e);
+            }
+        }
+        try {
+            if (clazz.equals(WmsOmsReceiveLogisticsDTO.class) || clazz.equals(String.class) || clazz.equals(WmsOmsReceiveInspectionResultDTO.class)) {
+                List<T> dto1 = (List<T>) mapper.readValue(f, new TypeReference<List<T>>() {
+                });
+                validateJson(path, dto1);
+            } else if (!dontValidateClazz.contains(clazz)) {
+                T dto1 = (T) mapper.readValue(f, clazz);
+                validateJson(path, dto1);
+            }
+        } catch (Exception e) {
+            logger.info(clazz.getName() + "{}", e);
+        }
+    }
+
+    private <T> void genXmlFile(String path, XMLConverter converter) {
+        File f = new File(path);
+        if (!f.exists()) {
+            try {
+                T dto = buildXmlInput(pathClazzMap.get(path));
+                converter.convertFromObjectToXML(dto, path);
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    private <T> T buildJsonInput(Class clazz) {
+        if (clazz.equals(BtcOmsReceiveOrderDTO.class)) {
+            return (T) omsTestDataBuilder.buildBtcInput();
+        } else if (clazz.equals(BtcPayDTO.class)) {
+            return (T) omsTestDataBuilder.buildBtcPay();
+        } else if (clazz.equals(OmsSOInfo.class)) {
+            return (T) omsTestDataBuilder.buildInventoryDeduct();
+        } else if (clazz.equals(StockLockByOms.class)) {
+            return (T) omsTestDataBuilder.buildInventoryLock();
+        } else if (clazz.equals(StockUnLockByOms.class)) {
+            return (T) omsTestDataBuilder.buildInventoryUnLock();
+        } else if (clazz.equals(String.class)) {
+            return (T) omsTestDataBuilder.buildCombineNoStr();
+        } else if (clazz.equals(TransportCompParam.class)) {
+            return (T) omsTestDataBuilder.buildLogisticsSelection();
+        } else if (clazz.equals(WmsOmsReceiveLogisticsDTO.class)) {
+            return (T) omsTestDataBuilder.buildWmsStatusDTO();
+        } else if (clazz.equals(MemberPayDTO.class)) {
+            return (T) omsTestDataBuilder.buildMem03DTO();
+        } else if (clazz.equals(CouponPayDTO.class)) {
+            return (T) omsTestDataBuilder.buildPromo01DTO();
+        } else if (clazz.equals(WmsOmsReceiveInspectionResultDTO.class)) {
+            return (T) omsTestDataBuilder.buildWmsInspect();
+        } else if (clazz.equals(WmsReceiveCostPriceDTO.class)) {
+            return (T) omsTestDataBuilder.buildWmsCostDTO();
+        } else if (clazz.equals(InventoryResendMsgDTO.class)) {
+            return (T) omsTestDataBuilder.buildResendInventory();
+        }else if (clazz.equals(SupportResend.class)) {
+            return (T) omsTestDataBuilder.buildSupportResend();
+        }else if (clazz.equals(OMSStatusUpdateDTO.class)) {
+            return (T) omsTestDataBuilder.buildOmsStatusUpdate();
+        }else if (clazz.equals(TmsStatusDTO.class)) {
+            return (T) omsTestDataBuilder.buildTmsStatusUpdateTopic();
+        }else if (clazz.equals(TmsPayDTO.class)) {
+            return (T) omsTestDataBuilder.buildTmsPay();
+        }
+
+        // else if (clazz.equals(TmsOrderDTO.class)) {
+        // return (T) omsTestDataBuilder.buildTmsOrder();
+        // }else if (clazz.equals(TmsPayDTO.class)) {
+        // return (T) omsTestDataBuilder.buildTmsPay();
+        // }else if (clazz.equals(TmsStatusDTO.class)) {
+        // return (T) omsTestDataBuilder.buildTmsStatus();
+        // }
+        return null;
+    }
+
+    private <T> T buildXmlInput(Class clazz) {
+//        if (clazz.equals(TmsPayDTO.class)) {
+//            return (T) omsTestDataBuilder.buildTmsPay();
+//        } else 
+        if (clazz.equals(TmsStatusDTO.class)) {
+            return (T) omsTestDataBuilder.buildTmsStatus();
+        } else if (clazz.equals(TmsOrderDTO.class)) {
+            return (T) omsTestDataBuilder.buildTmsOrder();
+        }
+        return null;
+    }
+
+    /**
+     * read from file to Object, then to Json String
+     * 
+     * @param <T>
+     * **/
+    public <T> String genJsonStrFromFile(String filePath, Class<T> clazz) {
+        ObjectMapper mapper = new ObjectMapper();
+//        File f = new File(filePath);
+        T dto1 = genJsonObjFromFile(filePath, clazz);
+        try {
+            return mapper.writeValueAsString(dto1);
+        } catch (JsonProcessingException e) {
+            logger.error("", e);
+            throw new Error("json exception");
+        }
+    }
+
+    /** read from file to Object **/
+    public <T> T genJsonObjFromFile(String filePath, Class<T> clazz) {
+        ObjectMapper mapper = new ObjectMapper();
+        File f = new File(filePath);
+        if (!f.exists()) {
+            genSampleJsonAll();
+        }
+        T dto1 = null;
+        try {
+            dto1 = (T) mapper.readValue(f, clazz);
+            return dto1;
+        } catch (Exception e) {
+            logger.info("{}", e);
+        }
+        return null;
+    }
+
+    // public static <T> T fromJSON(final TypeReference<T> type,
+    // final String filePath) {
+    // File f = new File(filePath);
+    // T data = null;
+    //
+    // try {
+    // data = new ObjectMapper().readValue(f, type);
+    // } catch (Exception e) {
+    // // Handle the problem
+    // }
+    // return data;
+    // }
+
+    // http://www.baeldung.com/jackson-collection-array
+    /**
+     * read from file to Object
+     * 
+     * @param <T>
+     * @param <T>
+     **/
+    public List<WmsOmsReceiveLogisticsDTO> genWmsJsonObjListFromFile(String filePath) {
+        ObjectMapper mapper = new ObjectMapper();
+        File f = new File(filePath);
+        if (!f.exists()) {
+            genSampleJsonAll();
+        }
+        List<WmsOmsReceiveLogisticsDTO> dto1 = null;
+        try {
+            dto1 = mapper.readValue(f, new TypeReference<List<WmsOmsReceiveLogisticsDTO>>() {
+            });
+            for (WmsOmsReceiveLogisticsDTO t : dto1) {
+                logger.info(t.getClass().toString());
+            }
+            return dto1;
+        } catch (Exception e) {
+            logger.info("{}", e);
+        }
+        return null;
+    }
+
+    public <T> void validateJson(String filePath, T obj) {
+        ObjectMapper mapper = new ObjectMapper();
+        T dto1;
+        try {
+            if (obj.getClass().equals(ArrayList.class)) {
+                dto1 = mapper.readValue(new File(filePath), new TypeReference<List>() {
+                });
+            } else {
+                dto1 = (T) mapper.readValue(new File(filePath), obj.getClass());
+            }
+        } catch (Exception e) {
+            logger.info("{}", e);
+            return;
+        }
+
+        // validate the input
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<T>> violations = validator.validate(dto1);
+        if (violations.size() > 0) {
+            for (ConstraintViolation<T> v : violations) {
+                logger.info("{}", v.getMessage());
+                logger.info("{}", v.getInvalidValue());
+            }
+        }
+        // btc snapshot字符串二次校验
+        if (obj instanceof BtcOmsReceiveOrderDTO) {
+            ObjectMapper om = new ObjectMapper();
+            BtcOmsReceiveOrderDTO btcDIO = (BtcOmsReceiveOrderDTO) obj;
+            for (OrderMainDTO omDTO : btcDIO.getOmDTO()) {
+                List<OrderSubDTO> osDTOs = omDTO.getOsDTOs();
+                if (osDTOs == null || osDTOs.isEmpty()) {
+                    break;
+                }
+                for (OrderSubDTO osDTO : osDTOs) {
+                    for (OrderItemDTO oi : osDTO.getOiDTOs()) {
+                        String snapShotStr = oi.getItemSnapshot();
+                        OrderItemSnapShotDTO snapShotDTO = null;
+                        try {
+                            snapShotDTO = om.readValue(snapShotStr, OrderItemSnapShotDTO.class);
+                        } catch (Exception e) {
+                            logger.info("{}", e);
+                            return;
+                        }
+                        Set<ConstraintViolation<OrderItemSnapShotDTO>> snapShotViolations = validator
+                                .validate(snapShotDTO);
+                        if (snapShotViolations.size() > 0) {
+                            for (ConstraintViolation<OrderItemSnapShotDTO> v : snapShotViolations) {
+                                logger.info("{}", v.getMessage());
+                                logger.info("{}", v.getInvalidValue());
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+}

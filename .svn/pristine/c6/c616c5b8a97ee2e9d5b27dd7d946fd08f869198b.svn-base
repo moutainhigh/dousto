@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+
+	<import resource="spring-oms-service.xml" />
+	<import resource="classpath:spring-oms-mail.xml" />
+	<import resource="classpath:spring-oms-config.xml" />
+	<import resource="spring-oms-redis.xml" />
+	<import resource="spring-security-cas.xml" />
+	<import resource="classpath*:config/interf-ws-client.xml" />
+	<import resource="classpath*:config/sup-ws-client.xml" />
+	<import resource="classpath*:config/product-ws-client.xml" />
+	<import resource="classpath*:config/stock-ws-client.xml" />
+	<import resource="classpath*:config/promo-ws-client.xml" />
+	<import resource="classpath*:config/member-ws-client.xml" />
+	<import resource="classpath*:config/store-ws-client.xml" />
+</beans>

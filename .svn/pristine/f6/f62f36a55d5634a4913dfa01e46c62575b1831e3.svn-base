@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+	http://www.springframework.org/schema/jee 
+	http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
+
+
+	<!-- Annotation Initilization -->
+	<context:annotation-config />
+	<!-- 设置需要进行Spring注解扫描的类包 -->
+	<context:component-scan base-package="
+	com.ibm.sc.service.oms,
+	com.ibm.sc.dao.oms,
+	com.ibm.sc.oms.service,
+	com.ibm.sc.dao.sys,
+	com.ibm.sc.service.sys,
+	com.ibm.sc.service.shipping,
+	com.ibm.sc.service.payment,
+	com.ibm.sc.dao.shipping,
+	com.ibm.sc.dao.payment,
+	com.ibm.sc.dao.mdm,com.ibm.sc.service.mdm">
+	
+	<context:exclude-filter type="regex" expression="com.ibm.sc.service.oms.report.*" />
+<!-- 		<context:exclude-filter type="aspectj" -->
+<!-- 			expression="com.ibm.sc.common.*" /> -->
+	</context:component-scan>
+
+	<bean id="orderCreateService"
+		class="com.ibm.sc.service.oms.business.impl.OrderCreateServiceImpl">
+		<property name="mem01" value="${I.MEM.01}" />
+		<property name="mem03" value="${I.MEM.03}" />
+		<property name="mem04" value="${I.MEM.04}" />
+		<property name="sup01" value="${I.SUP.01}" />
+		<property name="wms04" value="${I.WMS.04}" />
+		<property name="sim01" value="${I.SIM.01}" />
+		<property name="sim02" value="${I.SIM.02}" />
+		<property name="sim03" value="${I.SIM.03}" />
+		<property name="sim04" value="${I.SIM.04}" />
+		<property name="sim05" value="${I.SIM.05}" />
+		<property name="promo01" value="${I.PROMO.01}" />
+		<property name="promo02" value="${I.PROMO.02}" />
+		<property name="promo03" value="${I.PROMO.03}" />
+		<property name="logistics01" value="${I.LOGISTICS.01}" />
+		<property name="product01" value="${I.PRODUCT.01}" />
+		<property name="autoAuditSwitch" value="${autoAuditSwitch}" />
+	</bean>
+	<bean id="paymentModeUtil" class="com.ibm.sc.service.oms.util.PaymentModeUtil" />
+	<bean id="paymentMethodUtil" class="com.ibm.sc.service.oms.util.PaymentMethodUtil" />
+	<bean id="returnChangeOrderService"
+		class="com.ibm.sc.service.oms.business.impl.ReturnChangeOrderServiceImpl">
+		<property name="mem01" value="${I.MEM.01}" />
+		<property name="mem02" value="${I.MEM.02}" />
+		<property name="memVipCard" value="${I.MEM.VIPCARD}" />
+		<property name="wms04" value="${I.WMS.04}" />
+		<property name="sim01" value="${I.SIM.01}" />
+		<property name="sim02" value="${I.SIM.02}" />
+		<property name="sim03" value="${I.SIM.03}" />
+		<property name="sim06" value="${I.SIM.06}" />
+	</bean>
+
+	<bean id="xmlConverterOrder" class="com.ibm.sc.service.oms.util.XMLConverter">
+		<property name="marshaller" ref="castorMarshallerOrder" />
+		<property name="unmarshaller" ref="castorMarshallerOrder" />
+	</bean>
+
+	<bean id="xmlConverterStatus" class="com.ibm.sc.service.oms.util.XMLConverter">
+		<property name="marshaller" ref="castorMarshallerStatus" />
+		<property name="unmarshaller" ref="castorMarshallerStatus" />
+	</bean>
+	
+	<bean id="castorMarshallerOrder" class="org.springframework.oxm.castor.CastorMarshaller" >
+		<property name="mappingLocation" value="classpath:xml-mapping-tms-order.xml" />
+	</bean>
+<!-- 	<bean id="castorMarshallerPay" class="org.springframework.oxm.castor.CastorMarshaller" > -->
+<!-- 		<property name="mappingLocation" value="classpath:xml-mapping-tms-pay.xml" /> -->
+<!-- 	</bean> -->
+		<bean id="castorMarshallerStatus" class="org.springframework.oxm.castor.CastorMarshaller" >
+		<property name="mappingLocation" value="classpath:xml-mapping-tms-status.xml" />
+	</bean>
+
+	<bean id="simpleClientHttpRequestFactory" class="org.springframework.http.client.SimpleClientHttpRequestFactory">
+		<property name="connectTimeout" value="${connectTimeout}" />
+		<property name="readTimeout" value="${readTimeout}" />
+	</bean>
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+		<constructor-arg ref="simpleClientHttpRequestFactory"/>
+	</bean>
+	<util:map id="prePayModeMap">
+        <entry key="myCard" value="${prePayMode.myCard}"/>
+        <entry key="coupon" value="${prePayMode.coupon}"/>
+        <entry key="onLinePay" value="${prePayMode.onLinePay}"/>
+    </util:map>
+
+
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="2" />
+		<property name="maxActive" value="10" />
+		<property name="minIdle" value="2" />
+		<property name="maxIdle" value="5" />
+	</bean>
+	
+		<bean id="toptestDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${toptest.driver}" />
+		<property name="url" value="${toptest.url}" />
+		<property name="username" value="${toptest.username}" />
+		<property name="password" value="${toptest.password}" />
+		<property name="initialSize" value="2" />
+		<property name="maxActive" value="10" />
+		<property name="minIdle" value="2" />
+		<property name="maxIdle" value="5" />
+	</bean>
+
+	<bean id="toptestTransactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="toptestDataSource" />
+	</bean>
+
+	<!-- JDBC参数配置 -->
+	<context:property-placeholder location="classpath:oms-service.properties"
+		system-properties-mode="OVERRIDE" ignore-resource-not-found="true" />
+
+	<import resource="classpath:spring-oms-dao.xml" />
+	<!-- Annotation Initilization -->
+	<context:annotation-config />
+
+
+	<bean id="blPersistenceUnitManager" class="com.ibm.sc.jpa.MergingPersistenceUnitManager">
+		<property name="persistenceUnitPostProcessors">
+			<bean class="com.ibm.sc.jpa.MergingPersistenceUnitPostProcessor" />
+		</property>
+		<property name="defaultDataSource" ref="dataSource" />
+		<property name="persistenceXmlLocations">
+			<list>
+				<value>classpath*:META-INF/persistence-sc.xml</value>
+				<value>classpath*:META-INF/persistence-oms.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true" />
+				<property name="generateDdl" value="false" />
+				<property name="databasePlatform" value="org.hibernate.dialect.OracleDialect" />
+			</bean>
+		</property>
+		<property name="persistenceUnitManager" ref="blPersistenceUnitManager" />
+		<property name="persistenceUnitName" value="AppPU" />
+	</bean>
+
+
+	<!-- 使用AspectJ方式配置AOP -->
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<aop:config proxy-target-class="true" />
+
+	<!-- 使用注解方式定义事务 -->
+	<tx:annotation-driven proxy-target-class="true"
+		transaction-manager="transactionManager" />
+
+	<!-- 配置事务管理器 org.springframework.orm.jpa.JpaTransactionManager org.springframework.transaction.jta.WebSphereUowTransactionManager -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!-- 配置事务传播特性 -->
+	<tx:advice id="toptestTransactionAdvice" transaction-manager="toptestTransactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" />
+		</tx:attributes>
+	</tx:advice>
+	
+			<!-- 配置事务传播特性 -->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRES_NEW" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 配置哪些类的哪些方法参与事务 -->
+	<aop:config>
+		<aop:advisor pointcut="execution(* com.ibm.sc.integration.order.jdbc..*.*(..)) "
+			advice-ref="toptestTransactionAdvice" />
+	</aop:config>
+	<!-- or execution(* com.ibm.sc.service..*.*(..)) -->
+	
+		<!-- 配置哪些类的哪些方法参与事务 -->
+	<aop:config>
+		<aop:advisor pointcut="execution(* com.ibm.sc.integration.order.handler..*.*(..))"
+			advice-ref="transactionAdvice" />
+	</aop:config>
+	
+
+	
+	<!-- 配置freemarkerManager -->
+	<bean id="freemarkerManager" class="org.apache.struts2.views.freemarker.FreemarkerManager" />
+	<!-- 配置ContentTemplate StringTemplateLoader -->
+	<bean id="contentTemplateStrTplLoader" class="freemarker.cache.StringTemplateLoader" />
+	
+<!-- 	<bean id="orderItemService" class="com.ibm.sc.service.oms.impl.OrderItemServiceImpl"></bean> -->
+<!-- 	<bean id="orderItemDao" class="com.ibm.sc.dao.oms.impl.OrderItemDaoImpl"></bean> -->
+	
+<!-- 	<bean id="orderItemPayService" class="com.ibm.sc.service.oms.impl.OrderItemPayServiceImpl"></bean> -->
+<!-- 	<bean id="orderItemPayDao" class="com.ibm.sc.dao.oms.impl.OrderItemPayDaoImpl"></bean> -->
+	
+		
+<!-- 	<bean id="orderStatusSyncLogService" class="com.ibm.sc.service.oms.impl.OrderStatusSyncLogServiceImpl"></bean> -->
+<!-- 	<bean id="orderStatusSyncLogDao" class="com.ibm.sc.dao.oms.impl.OrderStatusSyncLogDaoImpl"></bean> -->
+	
+<!-- 	<bean id="orderPayService" class="com.ibm.sc.service.oms.impl.OrderPayServiceImpl"></bean> -->
+<!-- 	<bean id="orderPayDao" class="com.ibm.sc.dao.oms.impl.OrderPayDaoImpl"></bean> -->
+	
+<!-- 	<bean id="orderPromotionService" class="com.ibm.sc.service.oms.impl.OrderPromotionServiceImpl"></bean> -->
+<!-- 	<bean id="orderPromotionDao" class="com.ibm.sc.dao.oms.impl.OrderPromotionDaoImpl"></bean> -->
+
+<!-- 	<bean id="orderCombineRelationService" class="com.ibm.sc.service.oms.impl.OrderCombineRelationServiceImpl"></bean> -->
+<!-- 	<bean id="orderCombineRelationDao" class="com.ibm.sc.dao.oms.impl.OrderCombineRelationDaoImpl"></bean> -->
+	
+<!-- 	<bean id="orderPayModeService" class="com.ibm.sc.service.oms.impl.OrderPayModeServiceImpl"></bean> -->
+<!-- 	<bean id="orderPayModeDao" class="com.ibm.sc.dao.oms.impl.OrderPayModeDaoImpl"></bean> -->
+	
+<!-- 	<bean id="orderSubService" class="com.ibm.sc.service.oms.impl.OrderSubServiceImpl"></bean> -->
+<!-- 	<bean id="orderSubDao" class="com.ibm.sc.dao.oms.impl.OrderSubDaoImpl"></bean> -->
+
+</beans>

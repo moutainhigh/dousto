@@ -1,0 +1,16 @@
+{ 
+  "backup2":"backup02", 
+  "orderSubNo":"20140411000018202",
+  "operator":"刘长宇",
+  "operateTime":"2014-04-14",
+  "backup1":"backup01",
+  "ipDTOs": [
+      {
+        "orderItemNo": 2014041100001820201,
+        "inventoryPrice": 345
+      },      {
+        "orderItemNo": 2014041100001820202,
+        "inventoryPrice": 348
+      }
+    ]
+}

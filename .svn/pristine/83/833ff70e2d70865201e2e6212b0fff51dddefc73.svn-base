@@ -1,0 +1,41 @@
+{
+  "order_no": 201404110000181,
+  "order_category": "chg",
+  "transport_fee": 12,
+  "remark": "哈哈哈哈哈哈",
+  "order_source": "b2c",
+  "orderSub": {
+    "order_sub_no": 20140411000018101,
+    "distribute_Type": 1,
+    "express_type": 2,
+    "store_no": 2,
+    "user_name": "狒狒",
+    "phone_num": "0755-27566987",
+    "mob_phone_num": 15625366547,
+    "address_code": 31359,
+    "address_detail": "福田区福中一路地铁大厦",
+    "invoice_printed": 1,
+    "orderItems": [
+      {
+        "order_item_no": 2014041100001810101,
+        "sale_num": 1,
+        "sku_no": "",
+        "reason": "王八蛋",
+        "product_property_flag": 1,
+        "exchangeOrderItemDTO": {
+          "sku_no": 10,
+          "bar_code": 11,
+          "commodity_code": 12,
+          "commodity_name": "美国进口香蕉"
+        }
+      }
+    ]
+  },
+  "reciveinfo": {
+    "user_name": "肖红亮chg",
+    "phone_num": 18925366578,
+    "mob_phone_num": 18925366578,
+    "address_code": 31359,
+    "address_detail": "南山区侨香路网上天虹分拣中心"
+  }
+}

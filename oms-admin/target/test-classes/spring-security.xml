@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	                    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security 
+                        http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+	<!-- 无需进行权限验证的路径 -->
+	<sec:http pattern="/sys/login.action" security="none" />
+	<sec:http pattern="/admin/error.action" security="none" />
+	<sec:http pattern="/**/*.js" security="none" />
+	<sec:http pattern="/**/*.jpg" security="none" />
+	<sec:http pattern="/**/*.jpeg" security="none" />
+	<sec:http pattern="/**/*.css" security="none" />
+	<sec:http pattern="/**/*.png" security="none" />
+	<sec:http pattern="/**/*.gif" security="none" />
+	<sec:http pattern="/sc-flex-debug/**" security="none" />
+	<sec:http pattern="/cms/ad!jsonList.action" security="none" />
+	<sec:http pattern="/file_upload.action" security="none" />
+	<sec:http pattern="/file_upload!uploadImage.action" security="none" />
+
+<!-- 	<sec:http pattern="/order/**" security="none" /> -->
+
+	<!-- auto-config 自动配置常用的权限控制机制 -->
+	<!-- servlet-api-provision 禁止保存登录之前的请求 -->
+	<!-- access-denied-page 访问未授权时的显示页面 -->
+	<sec:http auto-config="true" access-decision-manager-ref="accessDecisionManager"
+		servlet-api-provision="false">
+
+
+
+		<!-- login-page 登录页面 -->
+		<!-- default-target-url 登录成功后跳转的URL -->
+		<!-- always-use-default-target 是否登录后必须访问default-target-url -->
+		<!-- authentication-failure-url 登录失败后跳转的URL -->
+		<sec:form-login login-page="/sys/login.action"
+			login-processing-url="/admin/loginVerify" default-target-url="/sys/user!main.action"
+			authentication-failure-url="/sys/login.action"
+			always-use-default-target="true" />
+
+		<sec:http-basic />
+
+		<sec:remember-me key="e37f8888-0ooo-22dd-bd0b-9900211c9a66" />
+
+		<sec:logout invalidate-session="true" logout-success-url="/sys/login.action"
+			logout-url="/admin/logout" />
+
+
+
+		<sec:access-denied-handler error-page="/html/http403.html" />
+
+
+
+		<sec:custom-filter before="FILTER_SECURITY_INTERCEPTOR"
+			ref="filterSecurityInterceptor" />
+
+		<sec:session-management invalid-session-url="/sys/login.action"
+			session-authentication-error-url="/sys/login.action">
+			<sec:concurrency-control max-sessions="10"
+				error-if-maximum-exceeded="true" expired-url="/sys/login.action" />
+		</sec:session-management>
+
+	</sec:http>
+
+	<!-- 后台管理权限认证 -->
+	<sec:authentication-manager alias="authenticationManager">
+		<sec:authentication-provider
+			user-service-ref="userDetailsService">
+			<sec:password-encoder hash="md5" />
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+
+	<bean id="successHandler"
+		class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+		<property name="defaultTargetUrl" value="/sys/user!main.action" />
+		<property name="alwaysUseDefaultTargetUrl" value="true" />
+	</bean>
+
+	<bean id="failureHandler"
+		class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+		<property name="defaultFailureUrl" value="/sys/login.action" />
+	</bean>
+
+	<!-- 定义权限、资源关系 -->
+	<bean id="filterSecurityInterceptor"
+		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<property name="authenticationManager" ref="authenticationManager" />
+		<!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源 -->
+		<property name="accessDecisionManager" ref="accessDecisionManager" />
+		<!-- 资源源数据定义，将所有的资源和权限对应关系建立起来，即定义某一资源可以被哪些角色访问 -->
+		<property name="securityMetadataSource" ref="adminSecurityMetadataSource" />
+	</bean>
+
+	<!-- <bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased"> 
+		<property name="decisionVoters"> <list> <bean class="org.springframework.security.access.vote.RoleVoter" 
+		/> <bean class="org.springframework.security.access.vote.AuthenticatedVoter" 
+		/> </list> </property> </bean> -->
+
+	<bean id="accessDecisionManager"
+		class="com.ibm.sc.service.security.impl.AuthorityAccessDecisionManager">
+	</bean>
+
+
+</beans>

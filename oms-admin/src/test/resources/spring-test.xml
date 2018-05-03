@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+<!-- 	<import resource="classpath:spring-oms-service.xml" /> -->
+
+<!-- 	<import resource="classpath:spring-oms-mail.xml" /> -->
+<!-- 	<import resource="classpath:$[spring-security.xml]" /> -->
+	<import resource="spring-service-test.xml" />
+<!-- 	<import resource="classpath:spring-oms-schedule.xml" /> -->
+	<import resource="classpath:spring-oms-redis-test.xml" />
+	<import resource="spring-oms-config-test.xml" />
+<!-- 	<import resource="spring-security-cas.xml" /> -->
+<!-- 	<import resource="classpath:spring-oms-redis.xml" /> -->
+	<!--
+	<import resource="classpath:spring-event.xml" />
+	<import resource="classpath:spring-security.xml" />
+	<import resource="classpath:spring-schedule.xml" />
+	<import resource="classpath:spring-jms.xml" />
+	-->
+	<import resource="spring-oms-service.xml" />
+	<import resource="classpath:spring-oms-mail.xml" />
+	<import resource="classpath:spring-oms-config.xml" />
+	<import resource="spring-oms-redis.xml" />
+	<import resource="spring-security-cas.xml" />
+	<import resource="classpath*:config/interf-ws-client.xml" />
+	<import resource="classpath*:config/sup-ws-client.xml" />
+	<import resource="classpath*:config/product-ws-client.xml" />
+	<import resource="classpath*:config/stock-ws-client.xml" />
+	<import resource="classpath*:config/promo-ws-client.xml" />
+	<import resource="classpath*:config/member-ws-client.xml" />
+	<import resource="classpath*:config/store-ws-client.xml" />
+</beans>

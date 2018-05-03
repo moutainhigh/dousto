@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+                        "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+ <tlib-version>1.0.0</tlib-version>
+ <jsp-version>1.2</jsp-version>
+ <short-name>JSCalendar Taglib</short-name>
+ <uri>/jscal2</uri>
+ <display-name>JSCalendar Taglib</display-name>
+ <description>JSCalendar JSP Taglib</description>
+ <tag>
+  <name>head</name>
+  <tag-class>org.apache.struts2.jscal2.views.jsp.ui.HeadTag</tag-class>
+  <body-content>empty</body-content>
+  <description>Render a chunk of HEAD for your HTML file</description>
+  <attribute>
+   <name>calendarcss</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>The jscalendar css theme to use" default="calendar-blue.css</description>
+  </attribute>
+  <attribute>
+   <name>language</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>The language to use for the widget texts and localization presets.</description>
+  </attribute>
+  <attribute>
+   <name>theme</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>The theme (other than default) to use for rendering the element</description>
+  </attribute>
+  <attribute>
+   <name>templateDir</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description> The template directory (other than default) to used to find the themes and hence the template.</description>
+  </attribute>
+  <attribute>
+   <name>template</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>The template (other than default) to use for rendering the element</description>
+  </attribute>
+ </tag>
+ <tag>
+  <name>jscalendar</name>
+  <tag-class>org.apache.struts2.jscal2.views.jsp.ui.JSCalendarTag</tag-class>
+  <body-content>JSP</body-content>
+  <description>Render datepicker</description>
+  <attribute>
+   <name>format</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>The format to use for date field.</description>
+  </attribute>
+  <attribute>
+   <name>showstime</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description> Whether time selector is to be shown. Valid values are &amp;quot;true&amp;quot;, &amp;quot;false&amp;quot;, &amp;quot;24&amp;quot;
+				and &amp;quot;12&amp;quot;.</description>
+  </attribute>
+  <attribute>
+   <name>singleclick</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Whether to use selected value after single or double click.</description>
+  </attribute>
+  <attribute>
+   <name>flat</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Whether to generate a flat or popup calendar.</description>
+  </attribute>
+  <attribute>
+   <name>flatCallback</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Flat calendar callback method name to execute.</description>
+  </attribute>
+  <attribute>
+   <name>maxlength</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>HTML maxlength attribute</description>
+  </attribute>
+  <attribute>
+   <name>maxLength</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Deprecated. Use maxlength instead.</description>
+  </attribute>
+  <attribute>
+   <name>readonly</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Whether the input is readonly</description>
+  </attribute>
+  <attribute>
+   <name>size</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>HTML size attribute</description>
+  </attribute>
+  <attribute>
+   <name>theme</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>The theme (other than default) to use for rendering the element</description>
+  </attribute>
+  <attribute>
+   <name>templateDir</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description> The template directory (other than default) to used to find the themes and hence the template.</description>
+  </attribute>
+  <attribute>
+   <name>template</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>The template (other than default) to use for rendering the element</description>
+  </attribute>
+  <attribute>
+   <name>cssClass</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>The css class to use for element</description>
+  </attribute>
+  <attribute>
+   <name>cssStyle</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>The css style definitions for element ro use</description>
+  </attribute>
+  <attribute>
+   <name>title</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html title attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>disabled</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html disabled attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>label</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Label expression used for rendering a element specific label</description>
+  </attribute>
+  <attribute>
+   <name>labelPosition</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>deprecated.</description>
+  </attribute>
+  <attribute>
+   <name>labelposition</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>define label position of form element (top/left)</description>
+  </attribute>
+  <attribute>
+   <name>requiredposition</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>define required position of required form element (left|right)</description>
+  </attribute>
+  <attribute>
+   <name>name</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>The name to set for element</description>
+  </attribute>
+  <attribute>
+   <name>required</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description> If set to true, the rendered element will indicate that input is required</description>
+  </attribute>
+  <attribute>
+   <name>tabindex</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html tabindex attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>value</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Preset the value of input element.</description>
+  </attribute>
+  <attribute>
+   <name>onclick</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html onclick attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>ondblclick</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html ondblclick attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>onmousedown</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html onmousedown attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>onmouseup</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html onmouseup attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>onmouseover</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html onmouseover attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>onmousemove</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html onmousemove attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>onmouseout</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html onmouseout attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>onfocus</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html onfocus attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>onblur</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html onblur attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>onkeypress</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html onkeypress attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>onkeydown</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html onkeydown attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>onkeyup</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html onkeyup attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>onselect</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html onselect attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>onchange</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html onchange attribute on rendered html element</description>
+  </attribute>
+  <attribute>
+   <name>accesskey</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the html accesskey attribute on rendered html ekement</description>
+  </attribute>
+  <attribute>
+   <name>tooltip</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the tooltip of this particular component</description>
+  </attribute>
+  <attribute>
+   <name>tooltipConfig</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description>Set the tooltip configuration</description>
+  </attribute>
+  <attribute>
+   <name>id</name>
+   <rtexprvalue>true</rtexprvalue>
+   <description> id for referencing element. For UI and form tags it will be used as HTML id attribute</description>
+  </attribute>
+  <attribute>
+   <name>fdow</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>date</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>titleFormat</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>time</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>minuteStep</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>selectionType</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>onTimeChange</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>dateInfo</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>weekNumbers</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>fixed</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>noScroll</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+  <attribute>
+   <name>onDisabled</name>
+   <rtexprvalue>true</rtexprvalue>
+  </attribute>
+ </tag>
+</taglib>

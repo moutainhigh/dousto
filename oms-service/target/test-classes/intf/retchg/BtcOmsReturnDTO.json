@@ -1,0 +1,29 @@
+{
+  "order_no": 201404110000181,
+  "order_category": "ret",
+  "transport_fee": 123,
+  "remark": 123,
+  "order_source": "b2c",
+  "pay_code": 1,
+  "pay_name": "my卡",
+  "orderSub": {
+    "order_sub_no": 20140411000018101,
+    "distribute_Type": "",
+    "express_type": 234,
+    "store_no": 234,
+    "user_name": 234,
+    "phone_num": 234,
+    "mob_phone_num": 234,
+    "address_code": 234,
+    "address_detail": 234,
+    "invoice_printed": 234,
+    "orderItems": [
+      {
+        "order_item_no": 2014041100001810101,
+        "sale_num": 1,
+        "sku_no": 345,
+        "reason": 345
+      }
+    ]
+  }
+}
